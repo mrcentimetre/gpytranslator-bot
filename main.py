@@ -1,5 +1,4 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from gpytranslate import Translator
 import string
 
