@@ -33,7 +33,7 @@ async def language(bot, msg):
 
 
 @bot.on_message(filters.command("lang") & filters.private)
-async def si(bot, msg):
+async def setlanguage(bot, msg):
     global lang
     lang = msg.command[1]
     @bot.on_message(filters.private & filters.private)
