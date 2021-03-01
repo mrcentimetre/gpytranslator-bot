@@ -46,7 +46,7 @@ async def si(bot, msg):
 
 
 ##main translation process
-@bot.on_message(filters.private & filters.private)
+@bot.on_message(filters.private)
 async def main(bot, msg):
     tr = Translator()
     translation = await tr(msg.text, targetlang=[lang, 'utf-16'])
