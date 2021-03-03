@@ -94,5 +94,31 @@ async def main(bot, msg):
     translation = await tr(msg.text, targetlang=[userlang, 'utf-16'])
     language = await tr.detect(msg.text)
     await msg.reply(f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language}")
+    
+@bot.on_message(filters.command("tr") & filters.group)
+async def translategroup(bot, msg) -> None:
+    tr = Translator()
+    if not msg.reply_to_message:
+        await msg.reply("Reply to a message to translate")
+        return
+    if msg.reply_to_message.caption:
+        to_translate = msg.reply_to_message.caption
+    elif msg.reply_to_message.text:
+        to_translate = msg.reply_to_message.text
+    try:
+        args = msg.text.split()[1].lower()
+        if "//" in args:
+            language = args.split("//")[0]
+            tolanguage = args.split("//")[1]
+        else:
+            language = await tr.detect(to_translate)
+            tolanguage = args
+    except IndexError:
+        language = await tr.detect(to_translate)
+        tolanguage = "en"
+    translation = await tr(to_translate,
+                              sourcelang=language, targetlang=tolanguage)
+    trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
+    await msg.reply(trmsgtext, parse_mode="markdown")
 
 bot.run()
