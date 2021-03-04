@@ -45,8 +45,6 @@ def set_db_lang(chat_id: int, chat_type: str, lang_code: str):
         db.commit()
 
 
-        
-   
 @bot.on_message(filters.private, group=-1)
 async def check_chat(bot, msg):
     chat_id = msg.chat.id
@@ -56,17 +54,24 @@ async def check_chat(bot, msg):
         add_chat(chat_id, chat_type)
         set_db_lang(chat_id, chat_type, "en")
         
-##Buttons
-@bot.on_message(filters.command("start") & filters.private)
-async def welcomemsg(bot, msg):
-    await bot.send_message(
-        msg.chat.id,
-        f"Hello {msg.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺",
+@bot.on_callback_query(filters.regex(r"^back"))
+async def backtostart(bot, query: CallbackQuery):
+ await query.message.edit(f"Hello {query.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("button 1", url="google.com")
-                ],
+                    InlineKeyboardButton("Commands",  callback_data="help")
+                ]
+            ]
+        )
+    )
+    
+##Buttons
+@bot.on_message(filters.command("start") & filters.private)
+async def welcomemsg(bot, msg):
+    await msg.reply(f"Hello {msg.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺",
+        reply_markup=InlineKeyboardMarkup(
+            [
                 [
                     InlineKeyboardButton("Commands",  callback_data="help")
                 ]
@@ -75,11 +80,9 @@ async def welcomemsg(bot, msg):
     )
 @bot.on_callback_query(filters.regex(r"^help"))
 async def helpbutton(bot: Client, query: CallbackQuery):
-    await query.message.edit_reply_markup(
+    await query.message.edit("**GpyTranslate Bot**\n\nGpyTranslate is a word 'G+Py+Translate' which means 'Google Python Translate'. A bot to help you translate text (with emojis) to few Languages from any other language in world.\n\nGpyTranslator Bot is able to detect a wide variety of languages because he is a grand son of Google Translate API.\n\nYou can use GpyTranslator Bot in his private chat. But GpyTranslator Bot is not available for Telegram Group & Channel.\n\n**How To**\nJust send copied text or forward message with other language to GpyTranslator Bot and you'll receive a translation of the message in the language of your choice. Send /language command to know which language is available.\n\n---\nFind a problem? Send to @MrCentimetre\n\ncoded by @MrCentimetreLK and @itayki by using @DavideGalilei 's Library with 💚",
         reply_markup=InlineKeyboardMarkup(
-
             [
-                *query.message.reply_markup.inline_keyboard[:1],
                 [InlineKeyboardButton("Back", callback_data="back")],
             ]
         )
@@ -124,7 +127,7 @@ async def main(bot, msg):
     language = await tr.detect(msg.text)
     await msg.reply(f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language}")
     
-@bot.on_message(filters.command("tr") & filters.group)
+@bot.on_message(filters.command("tr"))
 async def translategroup(bot, msg) -> None:
     tr = Translator()
     if not msg.reply_to_message:
