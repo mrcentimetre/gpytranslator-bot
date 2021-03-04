@@ -1,6 +1,8 @@
 from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from gpytranslate import Translator
-import sqlite3, string 
+import sqlite3, string
+
 
 bot = Client(
     "APP_NAME",
@@ -17,6 +19,7 @@ db.commit()
 
 default_language = "en"
 
+#Get User IDs and save it in DB
 def chat_exists(chat_id, chat_type):
     if chat_type == "private":
         dbc.execute("SELECT user_id FROM users where user_id = ?", (chat_id,))
@@ -42,8 +45,6 @@ def set_db_lang(chat_id: int, chat_type: str, lang_code: str):
         db.commit()
 
 
-        
-   
 @bot.on_message(filters.private, group=-1)
 async def check_chat(bot, msg):
     chat_id = msg.chat.id
@@ -53,11 +54,42 @@ async def check_chat(bot, msg):
         add_chat(chat_id, chat_type)
         set_db_lang(chat_id, chat_type, "en")
         
-        
-
+@bot.on_callback_query(filters.regex(r"^back"))
+async def backtostart(bot, query: CallbackQuery):
+ await query.message.edit(f"Hello {query.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("Commands",  callback_data="help")
+                ]
+            ]
+        )
+    )
+    
+##Buttons
+@bot.on_message(filters.command("start") & filters.private)
+async def welcomemsg(bot, msg):
+    await msg.reply(f"Hello {msg.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("Commands",  callback_data="help")
+                ]
+            ]
+        )
+    )
+@bot.on_callback_query(filters.regex(r"^help"))
+async def helpbutton(bot: Client, query: CallbackQuery):
+    await query.message.edit("**GpyTranslate Bot**\n\nGpyTranslate is a word 'G+Py+Translate' which means 'Google Python Translate'. A bot to help you translate text (with emojis) to few Languages from any other language in world.\n\nGpyTranslator Bot is able to detect a wide variety of languages because he is a grand son of Google Translate API.\n\nYou can use GpyTranslator Bot in his private chat. But GpyTranslator Bot is not available for Telegram Group & Channel.\n\n**How To**\nJust send copied text or forward message with other language to GpyTranslator Bot and you'll receive a translation of the message in the language of your choice. Send /language command to know which language is available.\n\n---\nFind a problem? Send to @MrCentimetre\n\ncoded by @MrCentimetreLK and @itayki by using @DavideGalilei 's Library with 💚",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("Back", callback_data="back")],
+            ]
+        )
+    )
     
 ##Configure welcome message
-@bot.on_message(filters.command("start") & filters.private)
+@bot.on_message(filters.command("hi") & filters.private)
 async def start(bot, msg):
     await msg.reply_text(f"Hello {msg.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺")
 
@@ -87,7 +119,7 @@ async def setmylang(bot, msg):
 
 
 ##main translation process
-@bot.on_message(filters.private)
+@bot.on_message(filters.private & ~filters.command("tr"))
 async def main(bot, msg):
     tr = Translator()
     userlang = get_db_lang(msg.chat.id, msg.chat.type)
@@ -116,6 +148,17 @@ async def translategroup(bot, msg) -> None:
     except IndexError:
         language = await tr.detect(to_translate)
         tolanguage = "en"
+    translation = await tr(to_translate,
+                              sourcelang=language, targetlang=tolanguage)
+    trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
+    await msg.reply(trmsgtext, parse_mode="markdown")
+
+@bot.on_message(filters.command("tr") & filters.private)
+async def translateprivatetwo(bot, msg) -> None:
+    tr = Translator()
+    to_translate = msg.text.split(None, 2)[2]
+    language = await tr.detect(msg.text.split(None, 2)[1])
+    tolanguage = msg.command[1]
     translation = await tr(to_translate,
                               sourcelang=language, targetlang=tolanguage)
     trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
