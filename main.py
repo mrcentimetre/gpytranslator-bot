@@ -119,7 +119,7 @@ async def setmylang(bot, msg):
 
 
 ##main translation process
-@bot.on_message(filters.private)
+@bot.on_message(filters.private & ~filters.command("tr"))
 async def main(bot, msg):
     tr = Translator()
     userlang = get_db_lang(msg.chat.id, msg.chat.type)
@@ -127,7 +127,7 @@ async def main(bot, msg):
     language = await tr.detect(msg.text)
     await msg.reply(f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language}")
     
-@bot.on_message(filters.command("tr"))
+@bot.on_message(filters.command("tr") & filters.group)
 async def translategroup(bot, msg) -> None:
     tr = Translator()
     if not msg.reply_to_message:
@@ -148,6 +148,17 @@ async def translategroup(bot, msg) -> None:
     except IndexError:
         language = await tr.detect(to_translate)
         tolanguage = "en"
+    translation = await tr(to_translate,
+                              sourcelang=language, targetlang=tolanguage)
+    trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
+    await msg.reply(trmsgtext, parse_mode="markdown")
+
+@bot.on_message(filters.command("tr") & filters.private)
+async def translateprivatetwo(bot, msg) -> None:
+    tr = Translator()
+    to_translate = msg.text.split(None, 2)[2]
+    language = await tr.detect(msg.text.split(None, 2)[1])
+    tolanguage = msg.command[1]
     translation = await tr(to_translate,
                               sourcelang=language, targetlang=tolanguage)
     trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
