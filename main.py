@@ -1,6 +1,8 @@
 from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from gpytranslate import Translator
-import sqlite3, string 
+import sqlite3, string
+
 
 bot = Client(
     "APP_NAME",
@@ -17,6 +19,7 @@ db.commit()
 
 default_language = "en"
 
+#Get User IDs and save it in DB
 def chat_exists(chat_id, chat_type):
     if chat_type == "private":
         dbc.execute("SELECT user_id FROM users where user_id = ?", (chat_id,))
@@ -53,11 +56,37 @@ async def check_chat(bot, msg):
         add_chat(chat_id, chat_type)
         set_db_lang(chat_id, chat_type, "en")
         
-        
+##Buttons
+@bot.on_message(filters.command("start") & filters.private)
+async def welcomemsg(bot, msg):
+    await bot.send_message(
+        msg.chat.id,
+        f"Hello {msg.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("button 1", url="google.com")
+                ],
+                [
+                    InlineKeyboardButton("Commands",  callback_data="help")
+                ]
+            ]
+        )
+    )
+@bot.on_callback_query(filters.regex(r"^help"))
+async def helpbutton(bot: Client, query: CallbackQuery):
+    await query.message.edit_reply_markup(
+        reply_markup=InlineKeyboardMarkup(
 
+            [
+                *query.message.reply_markup.inline_keyboard[:1],
+                [InlineKeyboardButton("Back", callback_data="back")],
+            ]
+        )
+    )
     
 ##Configure welcome message
-@bot.on_message(filters.command("start") & filters.private)
+@bot.on_message(filters.command("hi") & filters.private)
 async def start(bot, msg):
     await msg.reply_text(f"Hello {msg.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺")
 
