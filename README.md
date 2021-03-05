@@ -6,9 +6,9 @@ GpyTranslate is a word 'G+Py+Translate' which means 'Google Python Translate'. A
 
 ## Features
 
-- Dot accessible values
+- Supports in groups
+- Works with Inline
 - Supports emoji
-- Type hinted
 - Free to use
 - Easy
 
