@@ -195,10 +195,9 @@ async def translateinline(bot, query) -> None:
     tolanguage = query.query.lower().split()[0]
     translation = await tr(to_translate,
                               sourcelang=language, targetlang=tolanguage)
-    trmsgtext = f"{translation.text}" 
+    trmsgtext =f"{translation.text}" 
     await query.answer([InlineQueryResultArticle(
-        f"Translate from {language} to {tolanguage}",
-        InputTextMessageContent(trmsgtext)
+       title= f"Translate from {language} to {tolanguage}",description=f"{trans>
     )])
  except IndexError:
   return
