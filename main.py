@@ -139,7 +139,6 @@ async def setmylang(bot, msg):
 
 
 
-
 ##main translation process
 @bot.on_message(filters.private & ~filters.command("tr"))
 async def main(bot, msg):
