@@ -60,7 +60,15 @@ async def backtostart(bot, query: CallbackQuery):
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("Commands",  callback_data="help")
+                    InlineKeyboardButton("➕ Add me to a Group ➕",  url="http://t.me/GpyTranslatorBot?startgroup=tr")
+                ],
+                [
+                    InlineKeyboardButton("🆘 Help",  callback_data="help"),
+                    InlineKeyboardButton("💚 Credits",  callback_data=b"Credits")
+                ],
+                [
+                    InlineKeyboardButton("📣 Channel",  url="https://t.me/CentiProjects"),
+                    InlineKeyboardButton("👥 Group",  url="https://t.me/joinchat/VBrSurucLQFgJ_r2"),
                 ]
             ]
         )
@@ -73,20 +81,34 @@ async def welcomemsg(bot, msg):
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("Commands",  callback_data="help")
+                    InlineKeyboardButton("➕ Add me to a Group ➕",  url="http://t.me/GpyTranslatorBot?startgroup=tr")
+                ],
+                [
+                    InlineKeyboardButton("🆘 Help",  callback_data="help"),
+                    InlineKeyboardButton("💚 Credits",  callback_data=b"Credits")
+                ],
+                [
+                    InlineKeyboardButton("📣 Channel",  url="https://t.me/CentiProjects"),
+                    InlineKeyboardButton("👥 Group",  url="https://t.me/joinchat/VBrSurucLQFgJ_r2"),
                 ]
             ]
         )
     )
+#Setup Help Message with buttons    
 @bot.on_callback_query(filters.regex(r"^help"))
 async def helpbutton(bot: Client, query: CallbackQuery):
     await query.message.edit("**GpyTranslate Bot**\n\nGpyTranslate is a word 'G+Py+Translate' which means 'Google Python Translate'. A bot to help you translate text (with emojis) to few Languages from any other language in world.\n\nGpyTranslator Bot is able to detect a wide variety of languages because he is a grand son of Google Translate API.\n\nYou can use GpyTranslator Bot in his private chat. But GpyTranslator Bot is not available for Telegram Group & Channel.\n\n**How To**\nJust send copied text or forward message with other language to GpyTranslator Bot and you'll receive a translation of the message in the language of your choice. Send /language command to know which language is available.\n\n---\nFind a problem? Send to @MrCentimetre\n\ncoded by @MrCentimetreLK and @itayki by using @DavideGalilei 's Library with 💚",
         reply_markup=InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("Back", callback_data="back")],
+                [InlineKeyboardButton("🔙 Back", callback_data="back")],
             ]
         )
     )
+
+#Popup Credits    
+@bot.on_callback_query(filters.regex(r"^Credits"))
+async def credits(bot: Client, query: CallbackQuery):
+    await query.answer("Developers 🧑‍💻\n\n • @MrCentimetreLK\n • @itayki\n\nInspiration 👨🏻‍🏫\n\n • @DavideGalilei", show_alert=True)
     
 ##Configure welcome message
 @bot.on_message(filters.command("hi") & filters.private)
