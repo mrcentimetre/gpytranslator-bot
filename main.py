@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, InputTextMessageContent, InlineQueryResultArticle
 from gpytranslate import Translator
 import sqlite3, string
 
@@ -139,7 +139,6 @@ async def setmylang(bot, msg):
 
 
 
-
 ##main translation process
 @bot.on_message(filters.private & ~filters.command("tr"))
 async def main(bot, msg):
@@ -179,11 +178,28 @@ async def translategroup(bot, msg) -> None:
 async def translateprivatetwo(bot, msg) -> None:
     tr = Translator()
     to_translate = msg.text.split(None, 2)[2]
-    language = await tr.detect(msg.text.split(None, 2)[1])
+    language = await tr.detect(msg.text.split(None, 2)[2])
     tolanguage = msg.command[1]
     translation = await tr(to_translate,
                               sourcelang=language, targetlang=tolanguage)
     trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
     await msg.reply(trmsgtext, parse_mode="markdown")
 
+@bot.on_inline_query()
+async def translateinline(bot, query) -> None:
+ try:
+    tr = Translator()
+    to_translate = query.query.lower().split(None, 1)[1]
+    language = await tr.detect(query.query.lower().split(None, 1)[1])
+    tolanguage = query.query.lower().split()[0]
+    translation = await tr(to_translate,
+                              sourcelang=language, targetlang=tolanguage)
+    trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
+    await query.answer([InlineQueryResultArticle(
+        f"Translate from {language} to {tolanguage}",
+        InputTextMessageContent(trmsgtext)
+    )])
+ except IndexError:
+  return
+    
 bot.run()
