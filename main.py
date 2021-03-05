@@ -185,6 +185,7 @@ async def translateprivatetwo(bot, msg) -> None:
     trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
     await msg.reply(trmsgtext, parse_mode="markdown")
 
+#Inline Bot
 @bot.on_inline_query()
 async def translateinline(bot, query) -> None:
  try:
@@ -194,7 +195,7 @@ async def translateinline(bot, query) -> None:
     tolanguage = query.query.lower().split()[0]
     translation = await tr(to_translate,
                               sourcelang=language, targetlang=tolanguage)
-    trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}" 
+    trmsgtext = f"{translation.text}" 
     await query.answer([InlineQueryResultArticle(
         f"Translate from {language} to {tolanguage}",
         InputTextMessageContent(trmsgtext)
