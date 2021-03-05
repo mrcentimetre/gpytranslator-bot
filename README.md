@@ -8,7 +8,6 @@ GpyTranslate is a word 'G+Py+Translate' which means 'Google Python Translate'. A
 
 - Dot accessible values
 - Supports emoji
-- Asynchronous
 - Type hinted
 - Free to use
 - Easy
