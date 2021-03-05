@@ -32,7 +32,7 @@ Example:
 --API_HASH >> abcdef1234
 --TOKEN >> 1234567890:ABCDEF
 ```
-Run Code
+Run the bot
 ```
 python3 main.py
 ```
