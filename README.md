@@ -31,6 +31,7 @@ Example:
 --API_ID >> 1
 --API_HASH >> abcdef1234
 --TOKEN >> 1234567890:ABCDEF
+--sudousers >> [123456, 654321]
 ```
 change the name of config.py.example to config.py
 ```
