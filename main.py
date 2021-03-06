@@ -4,12 +4,11 @@ from pyrogram.types import (
     InlineKeyboardButton,
     CallbackQuery,
     InputTextMessageContent,
-    InlineQueryResultArticle
+    InlineQueryResultArticle,
+    Message
 )
 
 from gpytranslate import Translator
-from pyrogram.types.messages_and_media.message import Message
-
 import db
 import constants
 
@@ -89,7 +88,7 @@ async def main(bot, msg):
     await msg.reply(f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language}")
 
 
-@ bot.on_message(filters.command("tr") & filters.group)
+@bot.on_message(filters.command("tr") & filters.group)
 async def translategroup(bot, msg) -> None:
     tr = Translator()
     if not msg.reply_to_message:
@@ -116,7 +115,7 @@ async def translategroup(bot, msg) -> None:
     await msg.reply(trmsgtext, parse_mode="markdown")
 
 
-@ bot.on_message(filters.command("tr") & filters.private)
+@bot.on_message(filters.command("tr") & filters.private)
 async def translateprivatetwo(bot, msg) -> None:
     tr = Translator()
     to_translate = msg.text.split(None, 2)[2]
@@ -130,7 +129,7 @@ async def translateprivatetwo(bot, msg) -> None:
 # Inline Bot
 
 
-@ bot.on_inline_query()
+@bot.on_inline_query()
 async def translateinline(bot, query) -> None:
     try:
         tr = Translator()
