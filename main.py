@@ -11,12 +11,13 @@ from pyrogram.types import (
 from gpytranslate import Translator
 import db
 import constants
+from config import API_ID, API_HASH, TOKEN
 
 bot = Client(
     ":memory:",
-    api_id=1,
-    api_hash="abcdefghijklnmnopqrstuv",
-    bot_token="123456:abcdefghijklnmnopqrstuv"
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token= TOKEN
 )
 
 default_language = "en"
