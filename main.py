@@ -135,6 +135,7 @@ async def language(bot, msg):
 @bot.on_message(filters.command("lang") & filters.private)
 async def setmylang(bot, msg):
  thelang = msg.command[1]
+ await msg.reply(f"{thelang} has been set as your main language.")
  set_db_lang(msg.chat.id, msg.chat.type, thelang)
 
 
