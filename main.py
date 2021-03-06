@@ -35,8 +35,7 @@ async def check_chat(bot, msg):
 
 @bot.on_callback_query(filters.regex(r"^back"))
 async def backtostart(bot, query: CallbackQuery):
-    await query.message.edit(f"Hello {query.from_user.mention} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16 \n\nSend any text which you would like to translate for English.\n\n**Available commands:**\n/donate - Support developers\n/help - Show this help message\n/language - Set your main language\n\n__If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK\n\nEnjoy! ☺",
-                             reply_markup=constants.start_message_reply_markup)
+    await query.message.edit(constants.start_message_text.format(query.from_user.mention()), reply_markup=constants.start_message_reply_markup)
 
 
 @bot.on_message(filters.command("start") & filters.private)
