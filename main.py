@@ -3,7 +3,7 @@ import sys
 from threading import Thread
 
 from pyrogram import Client, filters
-from config import API_ID, API_HASH, TOKEN
+from config import API_ID, API_HASH, TOKEN, sudofilter
 
 
 bot = Client(
@@ -21,7 +21,7 @@ def stop_and_restart():
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 
-@bot.on_message(filters.command("r") & filters.user("itayki"))
+@bot.on_message(filters.command("r") & sudofilter)
 async def restart(bot, message):
     Thread(
         target=stop_and_restart
