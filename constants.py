@@ -55,6 +55,17 @@ You can use GpyTranslator Bot in his private chat. But GpyTranslator Bot is not 
 **How To**
 Just send copied text or forward message with other language to GpyTranslator Bot and you'll receive a translation of the message in the language of your choice. Send /language command to know which language is available.
 
+****More help****
+
+**Groups**
+/tr (language) by reply to translate the replied message
+
+**Translate in private chat without change the main language**
+/tr (language) (text)
+
+**Translate in inline mode**
+@GpyTranslatorBot (language) (text)
+
 ---
 Find a problem? Send to @MrCentimetre
 
