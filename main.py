@@ -1,5 +1,4 @@
-import os
-import sys
+import os, sys
 from threading import Thread
 
 from pyrogram import Client, filters
