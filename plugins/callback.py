@@ -15,8 +15,8 @@ async def backtostart(bot: Client, query: CallbackQuery):
 @Client.on_callback_query(filters.regex(r"^help"))
 async def helpbutton(bot: Client, query: CallbackQuery):
     await query.message.edit(
-        constants.start_message_text,
-        reply_markup=constants.start_message_reply_markup
+        constants.help_text,
+        reply_markup=constants.help_markup
     )
 
 
