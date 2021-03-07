@@ -7,7 +7,7 @@ from tr import tr
 
 
 @Client.on_message(
-    filters.command("hi")
+    filters.command("start")
     & filters.private
 )
 async def start(bot, message: Message):
@@ -42,7 +42,7 @@ async def setmylang(bot, message: Message):
     db.set_lang(message.chat.id, message.chat.type, thelang)
 
 
-@Client.on_message(filters.private & ~filters.command("tr"))
+@Client.on_message(filters.private & ~filters.command("tr") & ~filters.command("start"))
 async def main(bot, message: Message):
     userlang = db.get_lang(message.chat.id, message.chat.type)
     translation = await tr(message.text, targetlang=[userlang, 'utf-16'])
