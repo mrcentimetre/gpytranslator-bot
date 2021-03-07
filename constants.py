@@ -37,6 +37,12 @@ start_message_reply_markup = InlineKeyboardMarkup(
     ]
 )
 
+help_markup = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("🔙 Back", callback_data="back")],
+            ]
+        )
+
 credits = """Development 🧑‍💻
  • @MrCentimetreLK
  • @itayki
