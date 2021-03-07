@@ -20,7 +20,7 @@ def stop_and_restart():
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 
-@bot.on_message(filters.command("r") & sudofilter)
+@bot.on_message(filters.command("r") & sudofilter & ~filters.forwarded & ~filters.group & ~filters.edited & ~filters.via_bot)
 async def restart(bot, message):
     Thread(
         target=stop_and_restart
