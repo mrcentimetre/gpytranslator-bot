@@ -23,6 +23,12 @@ start_message_reply_markup = InlineKeyboardMarkup(
                 "➕ Add me to a Group ➕",  url="http://t.me/GpyTranslatorBot?startgroup=tr")
         ],
         [
+            InlineKeyboardButton(  
+                        "Inline here 🔍",
+                        switch_inline_query_current_chat=""
+                    )
+        ],
+        [
             InlineKeyboardButton(
                 "🆘 Help",  callback_data="help"),
             InlineKeyboardButton(
