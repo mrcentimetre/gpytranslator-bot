@@ -12,7 +12,7 @@ Send any text which you would like to translate for English.
 /help - Show this help message
 /language - Set your main language
 
-If you have questions about this bot or bots' development__ - Contact @MrCentimetreLK
+If you have questions about this bot or bots' development__ -  Feel free to put your question in @TDICSupport
 
 Enjoy! ☺"""
 
@@ -36,7 +36,7 @@ start_message_reply_markup = InlineKeyboardMarkup(
         ],
         [
             InlineKeyboardButton(
-                "📣 Channel",  url="https://t.me/CentiProjects"),
+                "📣 Channel",  url="https://t.me/TDICSupport"),
             InlineKeyboardButton(
                 "Group 👥",  url="https://t.me/joinchat/8wJ-PHAYoAAwYTQ1"),
         ]
@@ -50,7 +50,7 @@ help_markup = InlineKeyboardMarkup(
         )
 
 credits = """Development 🧑‍💻
- • @MrCentimetreLK
+ • @MrCentimetre
  • @itayki
  • @rojserbest
 
@@ -87,7 +87,7 @@ coded by @MrCentimetreLK and @itayki by using @DavideGalilei's Library with 💚
 """
 
 donate_text = """
-It's just a command \ud83d\ude09 But you can contact my father - @MrCentimetreLK
+It's just a command \ud83d\ude09 But you can contact me - @MrCentimetre
 """
 
 language_text = """
@@ -101,5 +101,5 @@ Example: ```/lang en```
 
 List of language codes: https://cloud.google.com/translate/docs/languages
 
-Send the relevant command. \ud83e\udd20")
+
 """
