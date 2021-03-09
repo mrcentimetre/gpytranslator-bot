@@ -32,7 +32,7 @@ start_message_reply_markup = InlineKeyboardMarkup(
             InlineKeyboardButton(
                 "📣 Channel",  url="https://t.me/CentiProjects"),
             InlineKeyboardButton(
-                "Group 👥",  url="https://t.me/joinchat/VBrSurucLQFgJ_r2"),
+                "Group 👥",  url="https://t.me/joinchat/8wJ-PHAYoAAwYTQ1"),
         ]
     ]
 )
