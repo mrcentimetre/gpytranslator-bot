@@ -36,9 +36,9 @@ start_message_reply_markup = InlineKeyboardMarkup(
         ],
         [
             InlineKeyboardButton(
-                "📣 Channel",  url="https://t.me/TDICSupport"),
+                "📣 Channel",  url="https://t.me/TDICProjects"),
             InlineKeyboardButton(
-                "Group 👥",  url="https://t.me/joinchat/8wJ-PHAYoAAwYTQ1"),
+                "Group 👥",  url="https://t.me/TDICSupport"),
         ]
     ]
 )
