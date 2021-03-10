@@ -17,10 +17,10 @@ GpyTranslate is a word 'G+Py+Translate' which means 'Google Python Translate'. A
 Clone the repository:
 
 ```
-git clone https://github.com/mrcentimetre/gpytranslator-bot.git gpytranslator && cd gpytranslator
+git clone https://github.com/mrcentimetre/gpytranslator-bot.git && cd gpytranslator-bot
 ```
 
-PIP requirements
+Install tge requirements
 
 ```
 pip3 install -U -r requirements.txt
