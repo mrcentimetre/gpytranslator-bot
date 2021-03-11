@@ -1,3 +1,5 @@
 gpytranslate
 Pyrogram
 TgCrypto
+pytesseract
+PIL
