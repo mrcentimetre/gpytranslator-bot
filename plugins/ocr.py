@@ -1,8 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-import pytesseract
-import PIL
-import os
+import pytesseract, PIL, os
 
 @Client.on_message(filters.command("ocr"))
 async def ocrcmd(bot, message: Message):
