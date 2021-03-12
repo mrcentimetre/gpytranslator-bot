@@ -13,6 +13,7 @@ from tr import tr
 async def start(bot, message: Message):
     await message.reply_text(constants.start_message_text.format(message.from_user.mention()),
                              reply_markup=constants.start_message_reply_markup)
+    await db.update_user_language(message.chat.id, message.chat.type, "en")
 
 
 @Client.on_message(
