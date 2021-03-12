@@ -13,7 +13,7 @@ from tr import tr
 async def start(bot, message: Message):
     await message.reply_text(constants.start_message_text.format(message.from_user.mention()),
                              reply_markup=constants.start_message_reply_markup)
-    await db.update_user_language(message.chat.id, message.chat.type, "en")
+    await db.update_user_language(message.chat.id, "en")
 
 
 @Client.on_message(
@@ -41,13 +41,13 @@ async def language(bot, message: Message):
 async def set_my_lang(bot, message: Message):
     thelang = message.command[1]
     await message.reply(f"{thelang} has been set as your main language.")
-    await db.update_user_language(message.chat.id, message.chat.type, thelang)
+    await db.update_user_language(message.chat.id, thelang)
 
 
 @Client.on_message(filters.private & ~filters.command("tr") & ~filters.command("start"))
 async def main(bot, message: Message):
-    user_lang = db.get_user_language(message.chat.id)
-    translation = await tr(message.text, targetlang=[userlang, 'utf-16'])
+    user_lang = await db.get_user_language(message.chat.id)
+    translation = await tr(message.text, targetlang=[user_lang, 'utf-16'])
     language_ = await tr.detect(message.text)
     await message.reply(
         f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language}")
