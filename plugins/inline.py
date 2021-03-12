@@ -5,7 +5,7 @@ from tr import tr
 
 
 @Client.on_inline_query()
-async def translateinline(bot: Client, query: InlineQuery) -> None:
+async def translate_inline(bot: Client, query: InlineQuery) -> None:
     try:
         to_translate = query.query.lower().split(None, 1)[1]
         language = await tr.detect(query.query.lower().split(None, 1)[1])
