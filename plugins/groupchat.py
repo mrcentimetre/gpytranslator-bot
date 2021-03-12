@@ -8,7 +8,7 @@ from tr import tr
     filters.command("tr")
     & filters.group
 )
-async def translategroup(bot, message: Message) -> None:
+async def translate_group(bot, message: Message) -> None:
     if not message.reply_to_message:
         await message.reply("Reply to a message to translate")
         return
