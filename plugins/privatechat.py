@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 import constants
-import db.user_languages as db
+import db
 from tr import tr
 
 
@@ -11,8 +11,7 @@ from tr import tr
     & filters.private
 )
 async def start(bot, message: Message):
-    await message.reply_text(constants.start_message_text.format(message.from_user.mention()),
-                             reply_markup=constants.start_message_reply_markup)
+    await message.reply_text(constants.start_message_text.format(message.from_user.mention()), reply_markup=constants.start_message_reply_markup)
 
 
 @Client.on_message(
@@ -37,27 +36,26 @@ async def language(bot, message: Message):
 
 
 @Client.on_message(filters.command("lang") & filters.private)
-async def set_my_lang(bot, message: Message):
+async def setmylang(bot, message: Message):
     thelang = message.command[1]
     await message.reply(f"{thelang} has been set as your main language.")
-    await db.update_user_language(message.chat.id, message.chat.type, thelang)
+    db.set_lang(message.chat.id, message.chat.type, thelang)
 
 
 @Client.on_message(filters.private & ~filters.command("tr") & ~filters.command("start"))
 async def main(bot, message: Message):
-    user_lang = db.get_user_language(message.chat.id)
+    userlang = db.get_lang(message.chat.id, message.chat.type)
     translation = await tr(message.text, targetlang=[userlang, 'utf-16'])
-    language_ = await tr.detect(message.text)
-    await message.reply(
-        f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language}")
+    language = await tr.detect(message.text)
+    await message.reply(f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language}")
 
 
 @Client.on_message(filters.command("tr") & filters.private)
 async def translateprivatetwo(bot, message: Message):
     to_translate = message.text.split(None, 2)[2]
-    language_ = await tr.detect(message.text.split(None, 2)[2])
-    to_language = message.command[1]
+    language = await tr.detect(message.text.split(None, 2)[2])
+    tolanguage = message.command[1]
     translation = await tr(to_translate,
-                           sourcelang=language_, targetlang=to_language)
-    tr_msg_text = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}"
-    await message.reply(tr_msg_text, parse_mode="markdown")
+                           sourcelang=language, targetlang=tolanguage)
+    trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}"
+    await message.reply(trmsgtext, parse_mode="markdown")

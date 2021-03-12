@@ -3,5 +3,4 @@ Pyrogram
 TgCrypto
 pytesseract
 Pillow
-motor
-dns-python
+
