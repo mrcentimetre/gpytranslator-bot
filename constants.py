@@ -26,11 +26,9 @@ start_message_reply_markup = InlineKeyboardMarkup(
             InlineKeyboardButton(  
                         "Inline here 🔍",
                         switch_inline_query_current_chat=""
-                    )
+                    ),
             InlineKeyboardButton(
-                "source code",  url="https://github.com/iiiiii1wepfj/share-text-bot"),
-        ],        [
-
+                "source code",  url="https://github.com/mrcentimetre/gpytranslator-bot"),
         ],
         [
             InlineKeyboardButton(
