@@ -15,7 +15,7 @@ async def start(bot, message: Message):
 
 
 @Client.on_message(
-    (filters.command("help") | filters.regex("^/start help"))
+    filters.command("help")
     & filters.private
 )
 async def help(bot, message: Message):
