@@ -11,6 +11,10 @@ from tr import tr
     & filters.private
 )
 async def start(bot, message: Message):
+ if len(message.text.split()) > 1:
+  if message.command[1] == "help":
+    await message.reply_text(constants.help_text)
+ else:
     await message.reply_text(constants.start_message_text.format(message.from_user.mention()), reply_markup=constants.start_message_reply_markup)
 
 
