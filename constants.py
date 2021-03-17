@@ -112,3 +112,4 @@ error_ocr_no_reply = """reply to a photo to get the text"""
 
 lang_saved_message = """{} has been set as your main language."""
 
+ocr_message_text = """```the text from in the image:``` \n\n {}"""
