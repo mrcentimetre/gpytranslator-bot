@@ -61,5 +61,4 @@ async def translateprivatetwo(bot, message: Message):
     tolanguage = message.command[1]
     translation = await tr(to_translate,
                            sourcelang=language, targetlang=tolanguage)
-    trmsgtext = f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language} \n\n **Translated to**: {tolanguage}"
-    await message.reply(trmsgtext, parse_mode="markdown")
+    await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
