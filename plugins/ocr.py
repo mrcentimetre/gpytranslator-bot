@@ -13,5 +13,5 @@ async def ocrcmd(bot, message: Message):
   return
  if message.reply_to_message.photo:
     await message.reply_to_message.download(file_name='ocr.jpg')
-    await message.reply(f"```the text from in the image:``` \n\n {pytesseract.image_to_string(PIL.Image.open('downloads/ocr.jpg'))}")
+    await message.reply(constants.ocr_message_text.format(pytesseract.image_to_string(PIL.Image.open('downloads/ocr.jpg'))))
     os.remove("downloads/ocr.jpg")
