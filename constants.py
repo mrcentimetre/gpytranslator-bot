@@ -115,3 +115,5 @@ lang_saved_message = """{} has been set as your main language."""
 ocr_message_text = """```the text in the image:``` \n\n {}"""
 
 translate_string_one = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {} \n\n **Translated to**: {}"""
+
+translate_string_two = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {}"""
