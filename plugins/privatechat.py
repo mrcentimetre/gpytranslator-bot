@@ -51,7 +51,7 @@ async def main(bot, message: Message):
     userlang = db.get_lang(message.chat.id, message.chat.type)
     translation = await tr(message.text, targetlang=[userlang, 'utf-16'])
     language = await tr.detect(message.text)
-    await message.reply(f"**\ud83c\udf10 Translation**:\n\n```{translation.text}```\n\n**🔍 Detected language:** {language}")
+    await message.reply(constants.translate_string_two.format(translation.text, language))
 
 
 @Client.on_message(filters.command("tr") & filters.private)
