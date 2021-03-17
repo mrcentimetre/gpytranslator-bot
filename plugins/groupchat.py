@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-
+import constants
 from tr import tr
 
 
@@ -10,7 +10,7 @@ from tr import tr
 )
 async def translategroup(bot, message: Message) -> None:
     if not message.reply_to_message:
-        await message.reply("Reply to a message to translate")
+        await message.reply(constants.error_group_no_reply)
         return
     if message.reply_to_message.caption:
         to_translate = message.reply_to_message.caption
