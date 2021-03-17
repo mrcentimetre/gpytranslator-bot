@@ -1,5 +1,6 @@
 from pyrogram import Client
 from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
+import constants
 
 from tr import tr
 
@@ -19,7 +20,7 @@ async def translateinline(bot: Client, query: InlineQuery) -> None:
         await query.answer(
             [
                 InlineQueryResultArticle(
-                    title=f"Translate from {language} to {tolanguage}",
+                    title=constants.inline_text_string_one.format(language, tolanguage),
                     description=f"{translation.text}",
                     input_message_content=InputTextMessageContent(trmsgtext)
                 )
