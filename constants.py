@@ -110,5 +110,5 @@ error_group_no_reply = """Reply to a message to translate"""
 
 error_ocr_no_reply = """reply to a photo to get the text"""
 
-
+lang_saved_message = """{} has been set as your main language."""
 
