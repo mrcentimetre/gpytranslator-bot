@@ -117,3 +117,5 @@ ocr_message_text = """```the text in the image:``` \n\n {}"""
 translate_string_one = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {} \n\n **Translated to**: {}"""
 
 translate_string_two = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {}"""
+
+inline_text_string_one = """Translate from {} to {}"""
