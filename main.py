@@ -29,7 +29,7 @@ async def restart(bot, message):
 
 @bot.on_message(filters.command("getbotdb") & sudofilter & ~filters.forwarded & ~filters.group & ~filters.edited & ~filters.via_bot)
 async def send_the_db(bot, message):
- await message.reply_document("userlanguages.db", thumb("botprofilepic.jpg"))
+ await message.reply_document("userlanguages.db", thumb="botprofilepic.jpg")
     
     
 bot.run()
