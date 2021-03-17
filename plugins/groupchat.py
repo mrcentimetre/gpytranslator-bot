@@ -5,7 +5,7 @@ from tr import tr
 
 
 @Client.on_message(
-    filters.command("tr")
+    filters.command(["tr", "tl", "translate"])
     & filters.group
 )
 async def translategroup(bot, message: Message) -> None:
