@@ -105,3 +105,10 @@ List of language codes: https://cloud.google.com/translate/docs/languages
 
 
 """
+
+error_group_no_reply = """Reply to a message to translate"""
+
+error_ocr_no_reply = """reply to a photo to get the text"""
+
+
+
