@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-
 from db import functions as db
 
 @Client.on_message(filters.private, group=-1)
