@@ -54,7 +54,7 @@ async def main(bot, message: Message):
     await message.reply(constants.translate_string_two.format(translation.text, language))
 
 
-@Client.on_message(filters.command("tr") & filters.private)
+@Client.on_message(filters.command("tr") & filters.private &~ filters.reply)
 async def translateprivatetwo(bot, message: Message):
     to_translate = message.text.split(None, 2)[2]
     language = await tr.detect(message.text.split(None, 2)[2])
@@ -62,3 +62,18 @@ async def translateprivatetwo(bot, message: Message):
     translation = await tr(to_translate,
                            sourcelang=language, targetlang=tolanguage)
     await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
+    
+@Client.on_message(filters.command("tr") & filters.private & filters.reply)
+async def translateprivate_reply(bot, message: Message):
+  if message.reply_to_message.caption:
+     to_translate = message.reply_to_message.caption
+  elif message.reply_to_message.text:
+    to_translate = message.reply_to_message.text
+  language = await tr.detect(to_translate)
+  if len(message.text.split()) > 1:
+   tolanguage = message.command[1]
+  else:
+   tolanguage = "en"
+  translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
+  await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
+  
