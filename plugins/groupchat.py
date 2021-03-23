@@ -2,12 +2,14 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 import constants
 from tr import tr
+from bot_errors_logger import logging_errors
 
 
 @Client.on_message(
     filters.command(["tr", "tl", "translate"])
     & filters.group
 )
+@logging_errors
 async def translategroup(bot, message: Message) -> None:
     if not message.reply_to_message:
         await message.reply(constants.error_group_no_reply)
