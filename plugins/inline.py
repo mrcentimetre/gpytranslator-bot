@@ -1,11 +1,12 @@
 from pyrogram import Client
 from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 import constants
-
+from bot_errors_logger import logging_errors
 from tr import tr
 
 
 @Client.on_inline_query()
+@logging_errors
 async def translateinline(bot: Client, query: InlineQuery) -> None:
     try:
         to_translate = query.query.lower().split(None, 1)[1]
