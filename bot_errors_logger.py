@@ -9,5 +9,5 @@ def logging_errors(f):
         try:
             return await f(client, message, *args, **kwargs)
         except Exception as e:
-            await message.reply(f"**Error:** \n ``` forward this message to https://t.me/TDICSupport if you see this error again```  \n\n ```{e}```", parse_mode="markdown")
+            await message.reply(f"**Error:**  \n\n ```{e}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**", parse_mode="markdown")
     return err_log
