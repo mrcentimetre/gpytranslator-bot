@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-
+from bot_errors_logger import logging_errors
 import constants
 import db
 from tr import tr
@@ -10,6 +10,7 @@ from tr import tr
     filters.command("start")
     & filters.private
 )
+@logging_errors
 async def start(bot, message: Message):
  if len(message.text.split()) > 1:
   if message.command[1] == "help":
@@ -22,6 +23,7 @@ async def start(bot, message: Message):
     filters.command("help")
     & filters.private
 )
+@logging_errors
 async def help(bot, message: Message):
     await message.reply_text(constants.help_text)
 
@@ -30,16 +32,19 @@ async def help(bot, message: Message):
     filters.command("donate")
     & filters.private
 )
+@logging_errors
 async def donate(bot, message: Message):
     await message.reply_text(constants.donate_text)
 
 
 @Client.on_message(filters.command("language"))
+@logging_errors
 async def language(bot, message: Message):
     await message.reply_text(constants.language_text)
 
 
 @Client.on_message(filters.command("lang") & filters.private)
+@logging_errors
 async def setmylang(bot, message: Message):
     thelang = message.command[1]
     await message.reply(constants.lang_saved_message.format(thelang))
@@ -47,6 +52,7 @@ async def setmylang(bot, message: Message):
 
 
 @Client.on_message(filters.private & ~filters.command("tr") & ~filters.command("start"))
+@logging_errors
 async def main(bot, message: Message):
     userlang = db.get_lang(message.chat.id, message.chat.type)
     translation = await tr(message.text, targetlang=[userlang, 'utf-16'])
@@ -55,6 +61,7 @@ async def main(bot, message: Message):
 
 
 @Client.on_message(filters.command("tr") & filters.private &~ filters.reply)
+@logging_errors
 async def translateprivatetwo(bot, message: Message):
     to_translate = message.text.split(None, 2)[2]
     language = await tr.detect(message.text.split(None, 2)[2])
@@ -64,6 +71,7 @@ async def translateprivatetwo(bot, message: Message):
     await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
     
 @Client.on_message(filters.command("tr") & filters.private & filters.reply)
+@logging_errors
 async def translateprivate_reply(bot, message: Message):
   if message.reply_to_message.caption:
      to_translate = message.reply_to_message.caption
