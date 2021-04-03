@@ -29,7 +29,7 @@ async def restart(bot, message):
 async def send_the_db(bot, message):
  await message.reply_document("userlanguages.db", thumb="botprofilepic.jpg")
 
-@bot.on_message(filters.command("ping") & sudofilter & filters.group)
+@bot.on_message(filters.command("ping") & sudofilter & filters.private)
 async def ping(bot, message):
  a = datetime.now()
  m = await message.reply_text("pong")
