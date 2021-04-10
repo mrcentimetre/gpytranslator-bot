@@ -4,7 +4,10 @@ import pytesseract, PIL, os
 import constants
 from bot_errors_logger import logging_errors
 
-@Client.on_message(filters.command("ocr"))
+prefix = constants.prefix
+
+
+@Client.on_message(filters.command("ocr", prefix))
 @logging_errors
 async def ocrcmd(bot, message: Message):
  if not message.reply_to_message:
