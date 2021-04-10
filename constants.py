@@ -117,3 +117,5 @@ translate_string_one = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 De
 translate_string_two = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {}"""
 
 inline_text_string_one = """Translate from {} to {}"""
+
+delete_this_messahe_string = """Delete this message""")
