@@ -10,7 +10,7 @@ def logging_errors(f):
         try:
             return await f(client, message, *args, **kwargs)
         except ChatWriteForbidden:
-            await client.leave_chat(message.chat.id)
+            await message.chat.leave()
             return
         except Exception as e:
             await message.reply(f"**Error:**  \n\n ```{e}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**", parse_mode="markdown", reply_markup=constants.error_message_markup)
