@@ -13,5 +13,9 @@ def logging_errors(f):
             await message.chat.leave()
             return
         except Exception as e:
-            await message.reply(f"**Error:**  \n\n ```{e}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**", parse_mode="markdown", reply_markup=constants.error_message_markup)
+            try:
+                await message.reply(f"**Error:**  \n\n ```{e}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**", parse_mode="markdown", reply_markup=constants.error_message_markup)
+            except ChatWriteForbidden:
+                await message.chat.leave()
+                return
     return err_log
