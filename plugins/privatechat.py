@@ -6,8 +6,11 @@ import db
 from tr import tr
 
 
+prefix = constants.prefix
+
+
 @Client.on_message(
-    filters.command("start")
+    filters.command("start", prefix)
     & filters.private
 )
 @logging_errors
@@ -20,7 +23,7 @@ async def start(bot, message: Message):
 
 
 @Client.on_message(
-    filters.command("help")
+    filters.command("help", prefix)
     & filters.private
 )
 @logging_errors
@@ -29,7 +32,7 @@ async def help(bot, message: Message):
 
 
 @Client.on_message(
-    filters.command("donate")
+    filters.command("donate", prefix)
     & filters.private
 )
 @logging_errors
@@ -37,13 +40,13 @@ async def donate(bot, message: Message):
     await message.reply_text(constants.donate_text)
 
 
-@Client.on_message(filters.command("language"))
+@Client.on_message(filters.command("language", prefix))
 @logging_errors
 async def language(bot, message: Message):
     await message.reply_text(constants.language_text)
 
 
-@Client.on_message(filters.command("lang") & filters.private)
+@Client.on_message(filters.command("lang", prefix) & filters.private)
 @logging_errors
 async def setmylang(bot, message: Message):
     thelang = message.command[1]
@@ -51,7 +54,7 @@ async def setmylang(bot, message: Message):
     db.set_lang(message.chat.id, message.chat.type, thelang)
 
 
-@Client.on_message(filters.private & ~filters.command("tr") & ~filters.command("start"))
+@Client.on_message(filters.private & ~filters.command("tr", prefix) & ~filters.command("start"))
 @logging_errors
 async def main(bot, message: Message):
     userlang = db.get_lang(message.chat.id, message.chat.type)
@@ -60,7 +63,7 @@ async def main(bot, message: Message):
     await message.reply(constants.translate_string_two.format(translation.text, language))
 
 
-@Client.on_message(filters.command("tr") & filters.private &~ filters.reply)
+@Client.on_message(filters.command("tr", prefix) & filters.private &~ filters.reply)
 @logging_errors
 async def translateprivatetwo(bot, message: Message):
     to_translate = message.text.split(None, 2)[2]
@@ -70,7 +73,7 @@ async def translateprivatetwo(bot, message: Message):
                            sourcelang=language, targetlang=tolanguage)
     await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
     
-@Client.on_message(filters.command("tr") & filters.private & filters.reply)
+@Client.on_message(filters.command("tr", prefix) & filters.private & filters.reply)
 @logging_errors
 async def translateprivate_reply(bot, message: Message):
   if message.reply_to_message.caption:
