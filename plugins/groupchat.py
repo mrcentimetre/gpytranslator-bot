@@ -5,8 +5,11 @@ from tr import tr
 from bot_errors_logger import logging_errors
 
 
+prefix = constants.prefix
+
+
 @Client.on_message(
-    filters.command(["tr", "tl", "translate"])
+    filters.command(["tr", "tl", "translate"], prefix)
     & filters.group & filters.reply
 )
 @logging_errors
