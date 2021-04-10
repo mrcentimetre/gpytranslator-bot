@@ -34,7 +34,7 @@ async def translategroup(bot, message: Message) -> None:
     await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
 
 
-@Client.on_message(filters.command("tr") & filters.group &~ filters.reply)
+@Client.on_message(filters.command("tr", prefix) & filters.group &~ filters.reply)
 @logging_errors
 async def translategrouptwo(bot, message: Message):
     to_translate = message.text.split(None, 2)[2]
