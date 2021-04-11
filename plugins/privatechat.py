@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message, Poll
+from pyrogram.types import Message
 from bot_errors_logger import logging_errors
 import constants
 import db
