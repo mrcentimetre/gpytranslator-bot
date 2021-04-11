@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.types import Message, Poll
 from bot_errors_logger import logging_errors
 import constants
 import db
@@ -57,10 +57,18 @@ async def setmylang(bot, message: Message):
 @Client.on_message(filters.private & ~filters.command("tr", prefix) & ~filters.command("start"))
 @logging_errors
 async def main(bot, message: Message):
-    userlang = db.get_lang(message.chat.id, message.chat.type)
-    translation = await tr(message.text, targetlang=[userlang, 'utf-16'])
-    language = await tr.detect(message.text)
-    await message.reply(constants.translate_string_two.format(translation.text, language))
+    if message.poll is None:
+        userlang = db.get_lang(message.chat.id, message.chat.type)
+        translation = await tr(message.text, targetlang=[userlang, 'utf-16'])
+        language = await tr.detect(message.text)
+        await message.reply(constants.translate_string_two.format(translation.text, language))
+    elif message.poll is not None:
+        userlang = db.get_lang(message.chat.id, message.chat.type)
+        options = "\n".join(x["text"] for x in message.poll.options)
+        to_translate = f"{message.poll.question}\n\n\n{options}"
+        fromlang = await tr.detect(to_translate)
+        translation = await tr(to_translate, targetlang=[userlang, 'utf-16'])
+        await message.reply(constants.translate_string_two.format(translation.text, fromlang))
 
 
 @Client.on_message(filters.command("tr", prefix) & filters.private &~ filters.reply)
@@ -76,6 +84,7 @@ async def translateprivatetwo(bot, message: Message):
 @Client.on_message(filters.command("tr", prefix) & filters.private & filters.reply)
 @logging_errors
 async def translateprivate_reply(bot, message: Message):
+ if message.reply_to_message.poll is None:
   if message.reply_to_message.caption:
      to_translate = message.reply_to_message.caption
   elif message.reply_to_message.text:
@@ -87,4 +96,13 @@ async def translateprivate_reply(bot, message: Message):
    tolanguage = "en"
   translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
   await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
-  
+ elif message.reply_to_message.poll is not None:
+  options = "\n".join(x["text"] for x in message.reply_to_message.poll.options)
+  to_translate = f"{message.reply_to_message.poll.question}\n\n\n{options}"
+  language = await tr.detect(to_translate)
+  if len(message.text.split()) > 1:
+   tolanguage = message.command[1]
+  else:
+   tolanguage = "en"
+  translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
+  await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
