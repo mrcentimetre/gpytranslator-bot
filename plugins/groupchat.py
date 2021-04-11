@@ -14,6 +14,7 @@ prefix = constants.prefix
 )
 @logging_errors
 async def translategroup(bot, message: Message) -> None:
+ if message.reply_to_message.poll is None:
     if message.reply_to_message.caption:
         to_translate = message.reply_to_message.caption
     elif message.reply_to_message.text:
@@ -32,7 +33,16 @@ async def translategroup(bot, message: Message) -> None:
     translation = await tr(to_translate,
                            sourcelang=language, targetlang=tolanguage)
     await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
-
+ elif message.reply_to_message.poll is not None:
+    options = "\n".join(x["text"] for x in message.reply_to_message.poll.options)
+    to_translate = f"{message.reply_to_message.poll.question}\n\n\n{options}"
+    language = await tr.detect(to_translate)
+    if len(message.text.split()) > 1:
+     tolanguage = message.command[1]
+    else:
+     tolanguage = "en"
+    translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
+    await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
 
 @Client.on_message(filters.command("tr", prefix) & filters.group &~ filters.reply)
 @logging_errors
