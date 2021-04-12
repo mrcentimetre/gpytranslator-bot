@@ -1,2 +1,1 @@
-from gpytranslate import Translator
-tr = Translator()
+tr = __import__("gpytranslate").Translator()
