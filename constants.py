@@ -22,42 +22,38 @@ start_message_reply_markup = InlineKeyboardMarkup(
     [
         [
             InlineKeyboardButton(
-                "➕ Add me to a Group ➕",  url="http://t.me/GpyTranslatorBot?startgroup=tr")
+                "➕ Add me to a Group ➕",
+                url="http://t.me/GpyTranslatorBot?startgroup=tr",
+            )
         ],
         [
-            InlineKeyboardButton(  
-                        "🔍 Inline here",
-                        switch_inline_query_current_chat=" "
-                    ),
+            InlineKeyboardButton("🔍 Inline here", switch_inline_query_current_chat=" "),
             InlineKeyboardButton(
-                "📄 Source code",  url="https://github.com/mrcentimetre/gpytranslator-bot"),
+                "📄 Source code", url="https://github.com/mrcentimetre/gpytranslator-bot"
+            ),
         ],
         [
-            InlineKeyboardButton(
-                "🆘 Help",  callback_data="help"),
-            InlineKeyboardButton(
-                "Credits 💚",  callback_data=b"Credits")
+            InlineKeyboardButton("🆘 Help", callback_data="help"),
+            InlineKeyboardButton("Credits 💚", callback_data=b"Credits"),
         ],
         [
-            InlineKeyboardButton(
-                "📣 Channel",  url="https://t.me/TDICProjects"),
-            InlineKeyboardButton(
-                "Group 👥",  url="https://t.me/TDICSupport"),
-        ]
+            InlineKeyboardButton("📣 Channel", url="https://t.me/TDICProjects"),
+            InlineKeyboardButton("Group 👥", url="https://t.me/TDICSupport"),
+        ],
     ]
 )
 
 help_markup = InlineKeyboardMarkup(
-            [
-                [InlineKeyboardButton("🔙 Back", callback_data="back")],
-            ]
-        )
+    [
+        [InlineKeyboardButton("🔙 Back", callback_data="back")],
+    ]
+)
 
 error_message_markup = InlineKeyboardMarkup(
-            [
-                [InlineKeyboardButton("🗑 Delete this message", callback_data="closeerrmsg")],
-            ]
-        )
+    [
+        [InlineKeyboardButton("🗑 Delete this message", callback_data="closeerrmsg")],
+    ]
+)
 
 
 credits = """Development 🧑‍💻
@@ -123,6 +119,8 @@ ocr_message_text = """```the text in the image:``` \n\n {}"""
 
 translate_string_one = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {} \n\n **Translated to**: {}"""
 
-translate_string_two = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {}"""
+translate_string_two = (
+    """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {}"""
+)
 
 inline_text_string_one = """Translate from {} to {}"""
