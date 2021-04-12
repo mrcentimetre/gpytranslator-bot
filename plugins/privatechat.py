@@ -9,32 +9,26 @@ from tr import tr
 prefix = constants.prefix
 
 
-@Client.on_message(
-    filters.command("start", prefix)
-    & filters.private
-)
+@Client.on_message(filters.command("start", prefix) & filters.private)
 @logging_errors
 async def start(bot, message: Message):
- if len(message.text.split()) > 1:
-  if message.command[1] == "help":
-    await message.reply_text(constants.help_text)
- else:
-    await message.reply_text(constants.start_message_text.format(message.from_user.mention()), reply_markup=constants.start_message_reply_markup)
+    if len(message.text.split()) > 1:
+        if message.command[1] == "help":
+            await message.reply_text(constants.help_text)
+    else:
+        await message.reply_text(
+            constants.start_message_text.format(message.from_user.mention()),
+            reply_markup=constants.start_message_reply_markup,
+        )
 
 
-@Client.on_message(
-    filters.command("help", prefix)
-    & filters.private
-)
+@Client.on_message(filters.command("help", prefix) & filters.private)
 @logging_errors
 async def help(bot, message: Message):
     await message.reply_text(constants.help_text)
 
 
-@Client.on_message(
-    filters.command("donate", prefix)
-    & filters.private
-)
+@Client.on_message(filters.command("donate", prefix) & filters.private)
 @logging_errors
 async def donate(bot, message: Message):
     await message.reply_text(constants.donate_text)
@@ -54,55 +48,74 @@ async def setmylang(bot, message: Message):
     db.set_lang(message.chat.id, message.chat.type, thelang)
 
 
-@Client.on_message(filters.private & ~filters.command("tr", prefix) & ~filters.command("start"))
+@Client.on_message(
+    filters.private & ~filters.command("tr", prefix) & ~filters.command("start")
+)
 @logging_errors
 async def main(bot, message: Message):
     if message.poll is None:
         userlang = db.get_lang(message.chat.id, message.chat.type)
-        translation = await tr(message.text, targetlang=[userlang, 'utf-16'])
+        translation = await tr(message.text, targetlang=[userlang, "utf-16"])
         language = await tr.detect(message.text)
-        await message.reply(constants.translate_string_two.format(translation.text, language))
+        await message.reply(
+            constants.translate_string_two.format(translation.text, language)
+        )
     elif message.poll is not None:
         userlang = db.get_lang(message.chat.id, message.chat.type)
         options = "\n".join(x["text"] for x in message.poll.options)
         to_translate = f"{message.poll.question}\n\n\n{options}"
         fromlang = await tr.detect(to_translate)
-        translation = await tr(to_translate, targetlang=[userlang, 'utf-16'])
-        await message.reply(constants.translate_string_two.format(translation.text, fromlang))
+        translation = await tr(to_translate, targetlang=[userlang, "utf-16"])
+        await message.reply(
+            constants.translate_string_two.format(translation.text, fromlang)
+        )
 
 
-@Client.on_message(filters.command("tr", prefix) & filters.private &~ filters.reply)
+@Client.on_message(filters.command("tr", prefix) & filters.private & ~filters.reply)
 @logging_errors
 async def translateprivatetwo(bot, message: Message):
     to_translate = message.text.split(None, 2)[2]
     language = await tr.detect(message.text.split(None, 2)[2])
     tolanguage = message.command[1]
-    translation = await tr(to_translate,
-                           sourcelang=language, targetlang=tolanguage)
-    await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
-    
+    translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
+    await message.reply(
+        constants.translate_string_one.format(translation.text, language, tolanguage),
+        parse_mode="markdown",
+    )
+
+
 @Client.on_message(filters.command("tr", prefix) & filters.private & filters.reply)
 @logging_errors
 async def translateprivate_reply(bot, message: Message):
- if message.reply_to_message.poll is None:
-  if message.reply_to_message.caption:
-     to_translate = message.reply_to_message.caption
-  elif message.reply_to_message.text:
-    to_translate = message.reply_to_message.text
-  language = await tr.detect(to_translate)
-  if len(message.text.split()) > 1:
-   tolanguage = message.command[1]
-  else:
-   tolanguage = "en"
-  translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
-  await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
- elif message.reply_to_message.poll is not None:
-  options = "\n".join(x["text"] for x in message.reply_to_message.poll.options)
-  to_translate = f"{message.reply_to_message.poll.question}\n\n\n{options}"
-  language = await tr.detect(to_translate)
-  if len(message.text.split()) > 1:
-   tolanguage = message.command[1]
-  else:
-   tolanguage = "en"
-  translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
-  await message.reply(constants.translate_string_one.format(translation.text, language, tolanguage), parse_mode="markdown")
+    if message.reply_to_message.poll is None:
+        if message.reply_to_message.caption:
+            to_translate = message.reply_to_message.caption
+        elif message.reply_to_message.text:
+            to_translate = message.reply_to_message.text
+        language = await tr.detect(to_translate)
+        if len(message.text.split()) > 1:
+            tolanguage = message.command[1]
+        else:
+            tolanguage = "en"
+        translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
+        await message.reply(
+            constants.translate_string_one.format(
+                translation.text, language, tolanguage
+            ),
+            parse_mode="markdown",
+        )
+    elif message.reply_to_message.poll is not None:
+        options = "\n".join(x["text"] for x in message.reply_to_message.poll.options)
+        to_translate = f"{message.reply_to_message.poll.question}\n\n\n{options}"
+        language = await tr.detect(to_translate)
+        if len(message.text.split()) > 1:
+            tolanguage = message.command[1]
+        else:
+            tolanguage = "en"
+        translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
+        await message.reply(
+            constants.translate_string_one.format(
+                translation.text, language, tolanguage
+            ),
+            parse_mode="markdown",
+        )
