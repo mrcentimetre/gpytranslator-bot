@@ -1,5 +1,5 @@
 from pyrogram import Client
-from pyrogram.types import Message, InlineQuery
+from pyrogram.types import Message
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 from functools import wraps
 import constants
