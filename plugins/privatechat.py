@@ -43,9 +43,12 @@ async def language(bot, message: Message):
 @Client.on_message(filters.command("lang", prefix) & filters.private)
 @logging_errors
 async def setmylang(bot, message: Message):
-    thelang = message.command[1]
-    await message.reply(constants.lang_saved_message.format(thelang))
-    db.set_lang(message.chat.id, message.chat.type, thelang)
+    if len(message.text.split()) > 1:
+        thelang = message.command[1]
+        await message.reply(constants.lang_saved_message.format(thelang))
+        db.set_lang(message.chat.id, message.chat.type, thelang)
+    else:
+        await message.reply(constants.language_text)
 
 
 @Client.on_message(
