@@ -124,3 +124,5 @@ translate_string_two = (
 )
 
 inline_text_string_one = """Translate from {} to {}"""
+
+error_msg_string = """**Error:**  \n\n ```{}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**"""
