@@ -16,7 +16,7 @@ def logging_errors(f):
         except Exception as e:
             try:
                 await message.reply(
-                    f"**Error:**  \n\n ```{e}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**",
+                    constants.error_msg_string.format(e),
                     parse_mode="markdown",
                     reply_markup=constants.error_message_markup,
                 )
