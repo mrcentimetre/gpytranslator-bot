@@ -59,7 +59,7 @@ async def main(bot, message: Message):
     if message.poll is None:
         userlang = db.get_lang(message.chat.id, message.chat.type)
         translation = await tr(message.text, targetlang=[userlang, "utf-16"])
-        language = await tr.detect(message.text)
+        language = await tr.detect(message.text or message.caption)
         await message.reply(
             constants.translate_string_two.format(translation.text, language)
         )
