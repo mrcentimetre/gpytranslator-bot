@@ -57,9 +57,10 @@ async def setmylang(bot, message: Message):
 @logging_errors
 async def main(bot, message: Message):
     if message.poll is None:
+        textorcaption = message.text or message.caption
         userlang = db.get_lang(message.chat.id, message.chat.type)
-        translation = await tr(message.text, targetlang=[userlang, "utf-16"])
-        language = await tr.detect(message.text or message.caption)
+        translation = await tr(textorcaption, targetlang=[userlang, "utf-16"])
+        language = await tr.detect(textorcaption or message.caption)
         await message.reply(
             constants.translate_string_two.format(translation.text, language)
         )
