@@ -3,6 +3,7 @@ from config import API_ID, API_HASH, TOKEN, sudofilter
 import os, sys
 from threading import Thread
 from datetime import datetime
+from db.functions import get_users_count
 
 bot = Client(
     ":memory:",
@@ -49,6 +50,11 @@ async def ping(bot, message):
     m = await message.reply_text("pong")
     b = datetime.now()
     await m.edit_text(f"pong {(b - a).microseconds / 1000} ms")
+
+
+@bot.on_message(filters.command("bot_stats") & sudofilter & filters.private)
+async def ping(bot, message):
+    await message.reply(get_users_count())
 
 
 bot.run()
