@@ -31,4 +31,4 @@ def set_lang(chat_id: int, chat_type: str, lang_code: str):
 def get_users_count():
     a = dbc.execute("""select count(*) from users""")
     b = a.fetchone()[0]
-    return f"the bot have {b} users"
+    return b
