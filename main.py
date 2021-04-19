@@ -54,7 +54,7 @@ async def ping(bot, message):
 
 @bot.on_message(filters.command("bot_stats") & sudofilter & filters.private)
 async def ping(bot, message):
-    await message.reply(get_users_count())
+    await message.reply(f"the bot have {get_users_count()} users")
 
 
 bot.run()
