@@ -51,7 +51,7 @@ help_markup = InlineKeyboardMarkup(
 
 error_message_markup = InlineKeyboardMarkup(
     [
-        [InlineKeyboardButton("🗑 Delete this message", callback_data="closeerrmsg")],
+        [InlineKeyboardButton("🗑 Delete this message", callback_data="closethismsg")],
     ]
 )
 
