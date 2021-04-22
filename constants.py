@@ -4,7 +4,7 @@ default_lang = "en"
 
 prefix = ["/", "!", "#", "."]
 
- 
+
 start_message_text = """
 Hello {} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16
 
