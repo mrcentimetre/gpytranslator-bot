@@ -29,8 +29,9 @@ def stop_and_restart():
     & ~filters.via_bot
 )
 async def restart(bot, message):
+    msgtxt = await message.reply("wait")
     Thread(target=stop_and_restart).start()
-
+    await msgtxt.edit_text("done")
 
 @bot.on_message(
     filters.command("getbotdb")
