@@ -2,7 +2,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 default_lang = "en"
 
-prefix = ["/", "!", "#"]
+prefix = ["/", "!", "#", "."]
 
 start_message_text = """
 Hello {} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16
