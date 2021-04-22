@@ -66,7 +66,7 @@ async def translategrouptwo(bot, message: Message):
     )
 
 
-@Client.on_message(filters.command("help", prefix) & filters.group)
+@Client.on_message(filters.command(["help", "help@gpytranslatorbot"], prefix) & filters.group)
 @logging_errors
 async def helpgroupcmd(bot, message: Message):
     getmebot = await bot.get_me()
