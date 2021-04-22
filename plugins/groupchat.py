@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 import constants
 from tr import tr
 from bot_errors_logger import logging_errors
@@ -63,4 +63,27 @@ async def translategrouptwo(bot, message: Message):
     await message.reply(
         constants.translate_string_one.format(translation.text, language, tolanguage),
         parse_mode="markdown",
+    )
+
+
+@Client.on_message(filters.command("help", prefix) & filters.group)
+@logging_errors
+async def helpgroupcmd(bot, message: Message):
+    getmebot = await bot.get_me()
+    await message.reply(
+        constants.help_group_string,
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "🆘 Help", url=f"https://t.me/{getmebot.username}?start=help"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🗑 Delete this message", callback_data="closethismsg"
+                    )
+                ],
+            ]
+        ),
     )

@@ -4,6 +4,7 @@ default_lang = "en"
 
 prefix = ["/", "!", "#", "."]
 
+ 
 start_message_text = """
 Hello {} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16
 
@@ -51,7 +52,7 @@ help_markup = InlineKeyboardMarkup(
 
 error_message_markup = InlineKeyboardMarkup(
     [
-        [InlineKeyboardButton("🗑 Delete this message", callback_data="closeerrmsg")],
+        [InlineKeyboardButton("🗑 Delete this message", callback_data="closethismsg")],
     ]
 )
 
@@ -126,3 +127,5 @@ translate_string_two = (
 inline_text_string_one = """Translate from {} to {}"""
 
 error_msg_string = """**Error:**  \n\n ```{}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**"""
+
+help_group_string = """To get help click on the button below"""

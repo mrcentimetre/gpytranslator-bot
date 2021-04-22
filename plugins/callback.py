@@ -21,6 +21,6 @@ async def credits(bot: Client, query: CallbackQuery):
     await query.answer(constants.credits, show_alert=True)
 
 
-@Client.on_callback_query(filters.regex(r"^closeerrmsg$"))
+@Client.on_callback_query(filters.regex(r"^closethismsg$"))
 async def close_error_message_callback(bot: Client, query: CallbackQuery):
     await query.message.delete()
