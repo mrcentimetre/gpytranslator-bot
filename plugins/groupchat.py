@@ -70,9 +70,20 @@ async def translategrouptwo(bot, message: Message):
 @logging_errors
 async def helpgroupcmd(bot, message: Message):
     getmebot = await bot.get_me()
-    await message.reply(constants.help_group_string, reply_markup=InlineKeyboardMarkup(
-    [
-        [InlineKeyboardButton("🆘 Help", url=f"https://t.me/{getmebot.username}?start=help")],
-        [InlineKeyboardButton("🗑 Delete this message", callback_data="closethismsg")],
-    ]
-))
+    await message.reply(
+        constants.help_group_string,
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "🆘 Help", url=f"https://t.me/{getmebot.username}?start=help"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🗑 Delete this message", callback_data="closethismsg"
+                    )
+                ],
+            ]
+        ),
+    )
