@@ -53,7 +53,7 @@ async def ping(bot, message):
     await m.edit_text(f"pong {(b - a).microseconds / 1000} ms")
 
 
-@bot.on_message(filters.command("bot_stats") & sudofilter & filters.private)
+@bot.on_message(filters.command("bot_stats") & sudofilter)
 async def ping(bot, message):
     await message.reply(f"the bot have {get_users_count()} users")
 
