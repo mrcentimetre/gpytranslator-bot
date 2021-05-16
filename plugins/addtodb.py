@@ -6,7 +6,7 @@ from db import functions as db
 async def check_chat(bot: Client, message: Message):
     chat_id = message.chat.id
     chat_type = message.chat.type
-
-    if not db.chat_exists(chat_id, chat_type):
-        db.add_chat(chat_id, chat_type)
-        db.set_lang(chat_id, chat_type, "en")
+    check_if_chat_exists = await db.chat_exists(chat_id, chat_type)
+    if not check_if_chat_exists:
+        await db.add_chat(chat_id, chat_type)
+        await db.set_lang(chat_id, chat_type, "en")
