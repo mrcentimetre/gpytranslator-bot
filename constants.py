@@ -129,3 +129,6 @@ inline_text_string_one = """Translate from {} to {}"""
 error_msg_string = """**Error:**  \n\n ```{}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**"""
 
 help_group_string = """To get help click on the button below"""
+
+
+google_tr_api_err_msg = """**Error:**  \n\n ```google translate api limit, please try again later.```"""
