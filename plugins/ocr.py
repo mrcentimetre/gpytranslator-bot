@@ -24,3 +24,27 @@ async def ocrcmd(bot, message: Message):
             )
         )
         os.remove("downloads/ocr.jpg")
+
+
+@Client.on_message(filters.command("ocrlang", prefix))
+@logging_errors
+async def ocrlangcmd(bot, message: Message):
+    if len(message.text.split()) > 1:
+        if not message.reply_to_message:
+            await message.reply(constants.error_ocr_no_reply)
+            return
+        if not message.reply_to_message.photo:
+            await message.reply(constants.error_ocr_no_reply)
+            return
+        if message.reply_to_message.photo:
+            await message.reply_to_message.download(file_name="ocr.jpg")
+            await message.reply(
+                constants.ocr_message_text.format(
+                    pytesseract.image_to_string(
+                        PIL.Image.open("downloads/ocr.jpg"), lang=message.command[1]
+                    )
+                )
+            )
+            os.remove("downloads/ocr.jpg")
+    else:
+        await ocrcmd(bot, message)
