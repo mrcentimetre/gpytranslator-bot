@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-import pytesseract, PIL, os
+import pytesseract, PIL, os, httpx
 import constants
 from bot_errors_logger import logging_errors
 
@@ -54,6 +54,14 @@ async def ocrlangcmd(bot, message: Message):
                 )
                 os.remove("downloads/ocr.jpg")
             else:
-                await message.reply(constants.ocr_err_msg_lang)
+                ocrlangslist = getocrlangsasalist()
+                async with httpx.AsyncClient(http2=True) as httpclient:
+                    a = await httpclient.post(
+                        "https://nekobin.com/api/documents",
+                        json={"content": getocrlangsasalist},
+                    )
+                    a = a.json()["result"]
+                    a = f"https://nekobin.com/{a['key']}"
+                    await message.reply(constants.ocr_err_msg_lang.format(a))
     else:
         await ocrcmd(bot, message)
