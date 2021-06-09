@@ -1,10 +1,17 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-import pytesseract, PIL, os
+import pytesseract, PIL, os, httpx
 import constants
 from bot_errors_logger import logging_errors
 
 prefix = constants.prefix
+
+
+def getocrlangsasalist():
+    a = ""
+    for i in pytesseract.get_languages():
+        a += f"{i}\n"
+    return a
 
 
 @Client.on_message(filters.command("ocr", prefix))
@@ -30,21 +37,31 @@ async def ocrcmd(bot, message: Message):
 @logging_errors
 async def ocrlangcmd(bot, message: Message):
     if len(message.text.split()) > 1:
+        msg_arg = message.command[1]
         if not message.reply_to_message:
-            await message.reply(constants.error_ocr_no_reply)
-            return
+            return await message.reply(constants.error_ocr_no_reply)
         if not message.reply_to_message.photo:
-            await message.reply(constants.error_ocr_no_reply)
-            return
+            return await message.reply(constants.error_ocr_no_reply)
         if message.reply_to_message.photo:
-            await message.reply_to_message.download(file_name="ocr.jpg")
-            await message.reply(
-                constants.ocr_message_text.format(
-                    pytesseract.image_to_string(
-                        PIL.Image.open("downloads/ocr.jpg"), lang=message.command[1]
+            if msg_arg in pytesseract.get_languages():
+                await message.reply_to_message.download(file_name="ocr.jpg")
+                await message.reply(
+                    constants.ocr_message_text.format(
+                        pytesseract.image_to_string(
+                            PIL.Image.open("downloads/ocr.jpg"), lang=msg_arg
+                        )
                     )
                 )
-            )
-            os.remove("downloads/ocr.jpg")
+                os.remove("downloads/ocr.jpg")
+            else:
+                ocrlangslist = getocrlangsasalist()
+                async with httpx.AsyncClient(http2=True) as httpclient:
+                    a = await httpclient.post(
+                        "https://nekobin.com/api/documents",
+                        json={"content": getocrlangsasalist},
+                    )
+                    a = a.json()["result"]
+                    a = f"https://nekobin.com/{a['key']}"
+                    await message.reply(constants.ocr_err_msg_lang.format(a))
     else:
         await ocrcmd(bot, message)
