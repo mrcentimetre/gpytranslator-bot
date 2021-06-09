@@ -59,6 +59,7 @@ async def ocrlangcmd(bot, message: Message):
             else:
                 ocrlangslist = getocrlangsasalist()
                 thepaste = await theapi.paste(content=ocrlangslist)
-                await message.reply(constants.ocr_err_msg_lang.format(thepaste))
+                thepaste = thepaste["paste_url"]
+                await message.reply(constants.ocr_err_msg_lang.format())
     else:
         await ocrcmd(bot, message)
