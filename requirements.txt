@@ -3,4 +3,4 @@ Pyrogram
 TgCrypto
 pytesseract
 Pillow
-
+py-multiapi
