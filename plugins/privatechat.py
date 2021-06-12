@@ -5,7 +5,7 @@ import constants
 import db
 from tr import tr
 import json
-from bot_custom_exceptions import bot_custom_exceptions
+from bot_custom_exceptions import google_api_error
 
 prefix = constants.prefix
 
