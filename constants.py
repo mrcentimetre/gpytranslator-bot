@@ -131,6 +131,6 @@ error_msg_string = """**Error:**  \n\n ```{}``` \n\n **forward this message to h
 help_group_string = """To get help click on the button below"""
 
 
-google_tr_api_err_msg = """**Error:**  \n\n ```this is not text or this is google translate api limit, please try again later.```"""
+google_tr_api_err_msg = """this is not text or this is google translate api limit, please try again later."""
 
 ocr_err_msg_lang = """the language code is not supported in the ocr try to found the language code by click on the link {}"""
