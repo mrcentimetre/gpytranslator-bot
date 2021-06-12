@@ -3,7 +3,6 @@ from pyrogram.types import Message
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 from functools import wraps
 import constants
-import json
 
 
 def logging_errors(f):
@@ -14,8 +13,6 @@ def logging_errors(f):
         except ChatWriteForbidden:
             await message.chat.leave()
             return
-        except json.decoder.JSONDecodeError:
-            await message.reply(constants.google_tr_api_err_msg, parse_mode="markdown")
         except Exception as e:
             try:
                 await message.reply(
