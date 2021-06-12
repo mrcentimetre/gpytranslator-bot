@@ -3,7 +3,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 import constants
 from tr import tr
 from bot_errors_logger import logging_errors
-from bot_custom_exceptions import bot_custom_exceptions
+from bot_custom_exceptions import google_api_error
 
 prefix = constants.prefix
 
