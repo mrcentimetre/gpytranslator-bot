@@ -5,7 +5,7 @@ import constants
 import db
 from tr import tr
 import json
-
+from bot_custom_exceptions import bot_custom_exceptions
 
 prefix = constants.prefix
 
