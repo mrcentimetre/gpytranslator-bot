@@ -4,6 +4,7 @@ from bot_errors_logger import logging_errors
 import constants
 import db
 from tr import tr
+import json
 
 
 prefix = constants.prefix
@@ -56,70 +57,87 @@ async def setmylang(bot, message: Message):
 )
 @logging_errors
 async def main(bot, message: Message):
-    if message.poll is None:
-        textorcaption = message.text or message.caption
-        userlang = await db.get_lang(message.chat.id, message.chat.type)
-        translation = await tr(textorcaption, targetlang=[userlang, "utf-16"])
-        language = await tr.detect(textorcaption or message.caption)
-        await message.reply(
-            constants.translate_string_two.format(translation.text, language)
-        )
-    elif message.poll is not None:
-        userlang = await db.get_lang(message.chat.id, message.chat.type)
-        options = "\n".join(x["text"] for x in message.poll.options)
-        to_translate = f"{message.poll.question}\n\n\n{options}"
-        fromlang = await tr.detect(to_translate)
-        translation = await tr(to_translate, targetlang=[userlang, "utf-16"])
-        await message.reply(
-            constants.translate_string_two.format(translation.text, fromlang)
-        )
+    try:
+        if message.poll is None:
+            textorcaption = message.text or message.caption
+            userlang = await db.get_lang(message.chat.id, message.chat.type)
+            translation = await tr(textorcaption, targetlang=[userlang, "utf-16"])
+            language = await tr.detect(textorcaption or message.caption)
+            await message.reply(
+                constants.translate_string_two.format(translation.text, language)
+            )
+        elif message.poll is not None:
+            userlang = await db.get_lang(message.chat.id, message.chat.type)
+            options = "\n".join(x["text"] for x in message.poll.options)
+            to_translate = f"{message.poll.question}\n\n\n{options}"
+            fromlang = await tr.detect(to_translate)
+            translation = await tr(to_translate, targetlang=[userlang, "utf-16"])
+            await message.reply(
+                constants.translate_string_two.format(translation.text, fromlang)
+            )
+    except json.decoder.JSONDecodeError:
+        raise bot_custom_exceptions(constants.google_tr_api_err_msg)
 
 
 @Client.on_message(filters.command("tr", prefix) & filters.private & ~filters.reply)
 @logging_errors
 async def translateprivatetwo(bot, message: Message):
-    to_translate = message.text.split(None, 2)[2]
-    language = await tr.detect(message.text.split(None, 2)[2])
-    tolanguage = message.command[1]
-    translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
-    await message.reply(
-        constants.translate_string_one.format(translation.text, language, tolanguage),
-        parse_mode="markdown",
-    )
+    try:
+        to_translate = message.text.split(None, 2)[2]
+        language = await tr.detect(message.text.split(None, 2)[2])
+        tolanguage = message.command[1]
+        translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
+        await message.reply(
+            constants.translate_string_one.format(
+                translation.text, language, tolanguage
+            ),
+            parse_mode="markdown",
+        )
+    except json.decoder.JSONDecodeError:
+        raise bot_custom_exceptions(constants.google_tr_api_err_msg)
 
 
 @Client.on_message(filters.command("tr", prefix) & filters.private & filters.reply)
 @logging_errors
 async def translateprivate_reply(bot, message: Message):
-    if message.reply_to_message.poll is None:
-        if message.reply_to_message.caption:
-            to_translate = message.reply_to_message.caption
-        elif message.reply_to_message.text:
-            to_translate = message.reply_to_message.text
-        language = await tr.detect(to_translate)
-        if len(message.text.split()) > 1:
-            tolanguage = message.command[1]
-        else:
-            tolanguage = "en"
-        translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
-        await message.reply(
-            constants.translate_string_one.format(
-                translation.text, language, tolanguage
-            ),
-            parse_mode="markdown",
-        )
-    elif message.reply_to_message.poll is not None:
-        options = "\n".join(x["text"] for x in message.reply_to_message.poll.options)
-        to_translate = f"{message.reply_to_message.poll.question}\n\n\n{options}"
-        language = await tr.detect(to_translate)
-        if len(message.text.split()) > 1:
-            tolanguage = message.command[1]
-        else:
-            tolanguage = "en"
-        translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
-        await message.reply(
-            constants.translate_string_one.format(
-                translation.text, language, tolanguage
-            ),
-            parse_mode="markdown",
-        )
+    try:
+        if message.reply_to_message.poll is None:
+            if message.reply_to_message.caption:
+                to_translate = message.reply_to_message.caption
+            elif message.reply_to_message.text:
+                to_translate = message.reply_to_message.text
+            language = await tr.detect(to_translate)
+            if len(message.text.split()) > 1:
+                tolanguage = message.command[1]
+            else:
+                tolanguage = "en"
+            translation = await tr(
+                to_translate, sourcelang=language, targetlang=tolanguage
+            )
+            await message.reply(
+                constants.translate_string_one.format(
+                    translation.text, language, tolanguage
+                ),
+                parse_mode="markdown",
+            )
+        elif message.reply_to_message.poll is not None:
+            options = "\n".join(
+                x["text"] for x in message.reply_to_message.poll.options
+            )
+            to_translate = f"{message.reply_to_message.poll.question}\n\n\n{options}"
+            language = await tr.detect(to_translate)
+            if len(message.text.split()) > 1:
+                tolanguage = message.command[1]
+            else:
+                tolanguage = "en"
+            translation = await tr(
+                to_translate, sourcelang=language, targetlang=tolanguage
+            )
+            await message.reply(
+                constants.translate_string_one.format(
+                    translation.text, language, tolanguage
+                ),
+                parse_mode="markdown",
+            )
+    except json.decoder.JSONDecodeError:
+        raise bot_custom_exceptions(constants.google_tr_api_err_msg)
