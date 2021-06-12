@@ -59,7 +59,7 @@ async def translategroup(bot, message: Message) -> None:
                 parse_mode="markdown",
             )
     except json.decoder.JSONDecodeError:
-        raise bot_custom_exceptions(constants.google_tr_api_err_msg)
+        raise google_api_error(constants.google_tr_api_err_msg)
 
 
 @Client.on_message(filters.command("tr", prefix) & filters.group & ~filters.reply)
@@ -77,7 +77,7 @@ async def translategrouptwo(bot, message: Message):
             parse_mode="markdown",
         )
     except json.decoder.JSONDecodeError:
-        raise bot_custom_exceptions(constants.google_tr_api_err_msg)
+        raise google_api_error(constants.google_tr_api_err_msg)
 
 
 @Client.on_message(
