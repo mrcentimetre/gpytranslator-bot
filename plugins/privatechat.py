@@ -76,7 +76,7 @@ async def main(bot, message: Message):
                 constants.translate_string_two.format(translation.text, fromlang)
             )
     except json.decoder.JSONDecodeError:
-        raise bot_custom_exceptions(constants.google_tr_api_err_msg)
+        raise google_api_error(constants.google_tr_api_err_msg)
 
 
 @Client.on_message(filters.command("tr", prefix) & filters.private & ~filters.reply)
@@ -94,7 +94,7 @@ async def translateprivatetwo(bot, message: Message):
             parse_mode="markdown",
         )
     except json.decoder.JSONDecodeError:
-        raise bot_custom_exceptions(constants.google_tr_api_err_msg)
+        raise google_api_error(constants.google_tr_api_err_msg)
 
 
 @Client.on_message(filters.command("tr", prefix) & filters.private & filters.reply)
@@ -140,4 +140,4 @@ async def translateprivate_reply(bot, message: Message):
                 parse_mode="markdown",
             )
     except json.decoder.JSONDecodeError:
-        raise bot_custom_exceptions(constants.google_tr_api_err_msg)
+        raise google_api_error(constants.google_tr_api_err_msg)
