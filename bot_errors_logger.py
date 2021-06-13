@@ -16,7 +16,7 @@ def logging_errors(f):
         except Exception as e:
             try:
                 await message.reply(
-                    constants.error_msg_string.format(f"{type(e).__name__}: {e}")),
+                    constants.error_msg_string.format(f"{type(e).__name__}: {e}"),
                     parse_mode="markdown",
                     reply_markup=constants.error_message_markup,
                 )
