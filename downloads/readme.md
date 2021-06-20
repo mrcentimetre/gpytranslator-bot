@@ -1,1 +1,1 @@
-the folder for the ocr plugins
+Folder of OCR Plugin.
