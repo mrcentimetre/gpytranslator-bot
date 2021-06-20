@@ -72,21 +72,22 @@ GpyTranslate is a word 'G+Py+Translate' which means 'Google Python Translate'. A
 
 GpyTranslator Bot is able to detect a wide variety of languages because he is a grand son of Google Translate API.
 
-You can use GpyTranslator Bot in his private chat. But GpyTranslator Bot is not available for Telegram Group & Channel.
+You can use GpyTranslator Bot in private chat, groups and inline mode. Also you can use /ocr command to get a text from an image.
 
 **How To**
-Just send copied text or forward message with other language to GpyTranslator Bot and you'll receive a translation of the message in the language of your choice. Send /language command to know which language is available.
+Just send copied text or forward message with other language to GpyTranslator Bot and you'll receive a translation of the message in the language of your choice. You can also translate quiz and polls. Send /language command to know which language is available.
 
-****More help****
+**- More help -**
 
-**Groups**
-/tr (language) by reply to translate the replied message
-
-**Translate in private chat without change the main language**
-/tr (language) (text)
+**Groups & Privat Chat Commands**
+○ /tr (language) - Translate replied message
+○ /tr (language) (text) - Translate to specific language without changing main language
+○ /ocr - To get text from image. (First you should send a image and then send /ocr as a reply.)
 
 **Translate in inline mode**
-@GpyTranslatorBot (language) (text)
+○ @GpyTranslatorBot (language) (text)
+
+__If you do not specify any language code, the given text will be translated to English.__
 
 ---
 Find a problem? Send to @MrCentimetre
