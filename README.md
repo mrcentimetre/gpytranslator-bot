@@ -42,9 +42,7 @@ Run the bot
 ```
 python3 main.py
 ```
-## Credits
-
-* [Amanoteam](https://github.com/AmanoTeam) for the db part from [EduuRobot](https://github.com/AmanoTeam/EduuRobot)
+## Credit
 
 ##### Inspiration
 * [Davide Galilei](https://github.com/DavideGalilei)
