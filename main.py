@@ -1,8 +1,10 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, idle
 from config import API_ID, API_HASH, TOKEN, sudofilter
 import os, sys
+from tortoise import run_async
 from threading import Thread
 from datetime import datetime
+from db.db import init_db
 from db.functions import get_users_count
 
 bot = Client(
@@ -33,6 +35,7 @@ async def restart(bot, message):
     Thread(target=stop_and_restart).start()
     await msgtxt.edit_text("done")
 
+
 @bot.on_message(
     filters.command("getbotdb")
     & sudofilter
@@ -58,4 +61,10 @@ async def get_bot_stats(bot, message):
     await message.reply(f"the bot have {await get_users_count()} users")
 
 
-bot.run()
+async def startbot():
+    await init_db()
+    await bot.start()
+    await idle()
+
+
+run_async(startbot())
