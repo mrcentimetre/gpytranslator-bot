@@ -1,11 +1,14 @@
-import sqlite3
+from tortoise import Tortoise, fields
+from tortoise.models import Model
 
 
-db = sqlite3.connect("userlanguages.db")
-dbc = db.cursor()
-dbc.execute("""
-CREATE TABLE IF NOT EXISTS users (
-    user_id INTEGER PRIMARY KEY,
-    chat_lang
-)""")
-db.commit()
+class users(Model):
+    user_id = fields.IntField(pk=True)
+    chat_lang = fields.TextField()
+
+
+async def init_db():
+    await Tortoise.init(
+        db_url="sqlite://userlanguages.db", modules={"models": [__name__]}
+    )
+    await Tortoise.generate_schemas()
