@@ -5,7 +5,7 @@ from tortoise import run_async
 from threading import Thread
 from datetime import datetime
 from db.db import init_db
-from db.functions import get_users_count
+from db.functions import get_users_count, chat_exists, get_lang
 
 bot = Client(
     ":memory:",
@@ -59,6 +59,22 @@ async def ping(bot, message):
 @bot.on_message(filters.command("bot_stats") & sudofilter)
 async def get_bot_stats(bot, message):
     await message.reply(f"the bot have {await get_users_count()} users")
+
+
+@bot.on_message(filters.command("get_user_lang") & sudofilter)
+async def get_lang_by_user_db(bot, message):
+    if len(message.text.split()) > 1:
+        chat_exists_check = await chat_exists(
+            chat_id=message.command[1], chat_type="private"
+        )
+        if chat_exists_check == True:
+            await message.reply(
+                await get_lang(chat_id=message.command[1], chat_type="private")
+            )
+        else:
+            await message.reply("¯\_(ツ)_/¯")
+    else:
+        await message.reply("¯\_(ツ)_/¯")
 
 
 async def startbot():
