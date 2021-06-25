@@ -45,7 +45,7 @@ async def restart(bot, message):
     & ~filters.via_bot
 )
 async def send_the_db(bot, message):
-    await message.reply_document("userlanguages.db", thumb="botprofilepic.jpg")
+    await message.reply_document("userlanguages.sqlite", thumb="botprofilepic.jpg")
 
 
 @bot.on_message(filters.command("ping") & sudofilter & filters.private)
