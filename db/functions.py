@@ -22,4 +22,4 @@ async def set_lang(chat_id: int, chat_type: str, lang_code: str):
 
 
 async def get_users_count():
-    return len(await users.all())
+    return await users.all().count()
