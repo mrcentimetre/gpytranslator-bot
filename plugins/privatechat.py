@@ -55,7 +55,6 @@ async def setmylang(bot, message: Message):
 @Client.on_message(
     filters.private & ~filters.command("tr", prefix) & ~filters.command("start")
 )
-@logging_errors
 async def main(bot, message: Message):
     try:
         if message.poll is None:
