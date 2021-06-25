@@ -1,7 +1,6 @@
 from pyrogram import Client, filters, idle
 from config import API_ID, API_HASH, TOKEN, sudofilter
 import os, sys
-from tortoise import run_async
 from threading import Thread
 from datetime import datetime
 from db.db import init_db
@@ -77,10 +76,4 @@ async def get_lang_by_user_db(bot, message):
         await message.reply("¯\_(ツ)_/¯")
 
 
-async def startbot():
-    await init_db()
-    await bot.start()
-    await idle()
-
-
-run_async(startbot())
+bot.run()
