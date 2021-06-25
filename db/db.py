@@ -9,6 +9,6 @@ class users(Model):
 
 async def init_db():
     await Tortoise.init(
-        db_url="sqlite://userlanguages.db", modules={"models": [__name__]}
+        db_url="sqlite:///userlanguages.db", modules={"models": [__name__]}
     )
     await Tortoise.generate_schemas()
