@@ -3,7 +3,6 @@ from config import API_ID, API_HASH, TOKEN, sudofilter
 import os, sys
 from threading import Thread
 from datetime import datetime
-from db.db import init_db
 from db.functions import get_users_count, chat_exists, get_lang
 
 bot = Client(
