@@ -1,7 +1,7 @@
 import sqlite3
 
 
-db = sqlite3.connect("userlanguages.sqlite")
+db = sqlite3.connect("userlanguages.db")
 dbc = db.cursor()
 dbc.execute("""
 CREATE TABLE IF NOT EXISTS users (
