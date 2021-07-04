@@ -5,3 +5,4 @@ TOKEN = "bot token"
 
 sudousers = [id, id]
 sudofilter = filters.user(sudousers)
+db_url = "sqlite://userlanguages.db"
