@@ -4,3 +4,4 @@ TgCrypto
 pytesseract
 Pillow
 py-multiapi
+tortoise-orm
