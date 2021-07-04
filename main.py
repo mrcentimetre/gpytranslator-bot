@@ -1,8 +1,10 @@
 from pyrogram import Client, filters, idle
 from config import API_ID, API_HASH, TOKEN, sudofilter
 import os, sys
+from tortoise import run_async
 from threading import Thread
 from datetime import datetime
+from db.db import init_db
 from db.functions import get_users_count, chat_exists, get_lang
 
 bot = Client(
@@ -34,17 +36,6 @@ async def restart(bot, message):
     await msgtxt.edit_text("done")
 
 
-@bot.on_message(
-    filters.command("getbotdb")
-    & sudofilter
-    & ~filters.forwarded
-    & ~filters.group
-    & ~filters.edited
-    & ~filters.via_bot
-)
-async def send_the_db(bot, message):
-    await message.reply_document("userlanguages.db", thumb="botprofilepic.jpg")
-
 
 @bot.on_message(filters.command("ping") & sudofilter & filters.private)
 async def ping(bot, message):
@@ -75,4 +66,10 @@ async def get_lang_by_user_db(bot, message):
         await message.reply("¯\_(ツ)_/¯")
 
 
-bot.run()
+async def startbot():
+    await init_db()
+    await bot.start()
+    await idle()
+
+
+run_async(startbot())
