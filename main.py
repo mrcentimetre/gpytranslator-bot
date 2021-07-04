@@ -36,7 +36,6 @@ async def restart(bot, message):
     await msgtxt.edit_text("done")
 
 
-
 @bot.on_message(filters.command("ping") & sudofilter & filters.private)
 async def ping(bot, message):
     a = datetime.now()
