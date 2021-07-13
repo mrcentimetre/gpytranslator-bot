@@ -23,6 +23,12 @@ start_message_reply_markup = InlineKeyboardMarkup(
     [
         [
             InlineKeyboardButton(
+                "donate",
+                url="https://www.paypal.com/paypalme/itayki",
+            )
+        ],
+        [
+            InlineKeyboardButton(
                 "➕ Add me to a Group ➕",
                 url="http://t.me/GpyTranslatorBot?startgroup=tr",
             )
@@ -97,6 +103,9 @@ coded by @MrCentimetreLK and @itayki by using @DavideGalilei's Library with 💚
 
 donate_text = """
 It's just a command \ud83d\ude09 But you can contact me - @MrCentimetre
+
+For donations for server maintenance:
+https://www.paypal.com/paypalme/itayki
 """
 
 language_text = """
