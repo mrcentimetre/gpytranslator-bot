@@ -1,10 +1,10 @@
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-prefix = ["/", "!", "#", "."]
+prefix: list = ["/", "!", "#", "."]
 
 
-start_message_text = """
+start_message_text: str = """
 Hello {} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16
 
 Send any text which you would like to translate for English.
@@ -62,7 +62,7 @@ error_message_markup = InlineKeyboardMarkup(
 )
 
 
-credits = """Development 🧑‍💻
+credits: str = """Development 🧑‍💻
  • @MrCentimetre
  • @itayki
  • @rojserbest
@@ -70,7 +70,7 @@ credits = """Development 🧑‍💻
 Inspiration 👨🏻‍🏫
  • @DavideGalilei"""
 
-help_text = """
+help_text: str = """
 **GpyTranslate Bot**
 
 GpyTranslate is a word 'G+Py+Translate' which means 'Google Python Translate'. A bot to help you translate text (with emojis) to few Languages from any other language in world.
@@ -100,14 +100,14 @@ Find a problem? Send to @MrCentimetre
 coded by @MrCentimetreLK and @itayki by using @DavideGalilei's Library with 💚
 """
 
-donate_text = """
+donate_text: str = """
 It's just a command \ud83d\ude09 But you can contact me - @MrCentimetre
 
 For donations for server maintenance:
 https://www.paypal.com/paypalme/itayki
 """
 
-language_text = """
+language_text: str = """
 **Languages**
 
 __Select the language you want to translate.__
@@ -121,25 +121,25 @@ List of language codes: https://cloud.google.com/translate/docs/languages
 
 """
 
-error_ocr_no_reply = """reply to a photo to get the text"""
+error_ocr_no_reply: str = """reply to a photo to get the text"""
 
-lang_saved_message = """{} has been set as your main language."""
+lang_saved_message: str = """{} has been set as your main language."""
 
-ocr_message_text = """```the text in the image:``` \n\n {}"""
+ocr_message_text: str = """```the text in the image:``` \n\n {}"""
 
-translate_string_one = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {} \n\n **Translated to**: {}"""
+translate_string_one: str = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {} \n\n **Translated to**: {}"""
 
-translate_string_two = (
+translate_string_two: str = (
     """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {}"""
 )
 
-inline_text_string_one = """Translate from {} to {}"""
+inline_text_string_one: str = """Translate from {} to {}"""
 
-error_msg_string = """**Error:**  \n\n ```{}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**"""
+error_msg_string: str = """**Error:**  \n\n ```{}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**"""
 
-help_group_string = """To get help click on the button below"""
+help_group_string: str = """To get help click on the button below"""
 
 
-google_tr_api_err_msg = """this is not text or this is google translate api limit, please try again later."""
+google_tr_api_err_msg: str = """this is not text or this is google translate api limit, please try again later."""
 
-ocr_err_msg_lang = """the language code is not supported in the ocr try to found the language code by click on the link {}"""
+ocr_err_msg_lang: str = """the language code is not supported in the ocr try to found the language code by click on the link {}"""
