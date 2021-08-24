@@ -20,7 +20,7 @@ Clone the repository:
 git clone https://github.com/mrcentimetre/gpytranslator-bot.git && cd gpytranslator-bot
 ```
 
-Install tge requirements
+Install the requirements
 
 ```
 pip3 install -U -r requirements.txt
