@@ -1,6 +1,5 @@
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-default_lang = "en"
 
 prefix = ["/", "!", "#", "."]
 
