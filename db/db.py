@@ -4,7 +4,7 @@ from config import db_url
 
 
 class users(Model):
-    user_id = fields.IntField(pk=True)
+    user_id = fields.BigIntField(pk=True)
     chat_lang = fields.TextField()
 
 
