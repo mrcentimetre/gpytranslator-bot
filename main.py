@@ -1,4 +1,5 @@
 from pyrogram import Client, filters, idle
+from gpytranslate import __version__ as gpytranslate_version
 from config import API_ID, API_HASH, TOKEN, sudofilter
 import os, sys
 from tortoise import run_async
@@ -63,6 +64,11 @@ async def get_lang_by_user_db(bot, message):
             await message.reply("¯\_(ツ)_/¯")
     else:
         await message.reply("¯\_(ツ)_/¯")
+
+
+@bot.on_message(filters.command("gpytranslate_version") & sudofilter)
+async def get_gpytranslate_lib_version(bot, message):
+    await message.reply_text(f"gpytranslate version: {gpytranslate_version}")
 
 
 async def startbot():
