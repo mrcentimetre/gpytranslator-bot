@@ -11,7 +11,7 @@ prefix = constants.prefix
 
 
 @Client.on_message(
-    filters.command("tr_poll_gen", prefix) & filters.private & filters.reply
+    filters.command("poll", prefix) & filters.private & filters.reply
 )
 @logging_errors
 async def gen_poll_tr_private_chat(bot, message: Message):
