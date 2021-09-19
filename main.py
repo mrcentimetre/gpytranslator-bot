@@ -53,13 +53,9 @@ async def get_bot_stats(bot, message):
 @bot.on_message(filters.command("get_user_lang") & sudofilter)
 async def get_lang_by_user_db(bot, message):
     if len(message.text.split()) > 1:
-        chat_exists_check = await chat_exists(
-            chat_id=message.command[1], chat_type="private"
-        )
+        chat_exists_check = await chat_exists(chat_id=message.command[1])
         if chat_exists_check == True:
-            await message.reply(
-                await get_lang(chat_id=message.command[1], chat_type="private")
-            )
+            await message.reply(await get_lang(chat_id=message.command[1]))
         else:
             await message.reply("¯\_(ツ)_/¯")
     else:
