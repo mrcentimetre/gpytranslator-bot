@@ -47,7 +47,7 @@ async def setmylang(bot, message: Message):
     if len(message.text.split()) > 1:
         thelang = message.command[1]
         await message.reply(constants.lang_saved_message.format(thelang))
-        await db.set_lang(message.chat.id, message.chat.type, thelang)
+        await db.set_lang(message.chat.id, thelang)
     else:
         await message.reply(constants.language_text)
 
@@ -63,7 +63,7 @@ async def gen_poll_tr_private_chat(bot, message: Message):
             if len(message.text.split()) > 1:
                 tolanguage = message.command[1]
             else:
-                tolanguage = await db.get_lang(message.chat.id, message.chat.type)
+                tolanguage = await db.get_lang(message.chat.id)
             translation = await tr(txt_to_tr, targetlang=[tolanguage, "utf-16"])
             translation_text = translation.text
             poll_que = translation_text.split("\n", 1)[0]
@@ -89,14 +89,14 @@ async def main(bot, message: Message):
     try:
         if message.poll is None:
             textorcaption = message.text or message.caption
-            userlang = await db.get_lang(message.chat.id, message.chat.type)
+            userlang = await db.get_lang(message.chat.id)
             translation = await tr(textorcaption, targetlang=[userlang, "utf-16"])
             language = await tr.detect(textorcaption or message.caption)
             await message.reply(
                 constants.translate_string_two.format(translation.text, language)
             )
         elif message.poll is not None:
-            userlang = await db.get_lang(message.chat.id, message.chat.type)
+            userlang = await db.get_lang(message.chat.id)
             options = "\n".join(x["text"] for x in message.poll.options)
             to_translate = f"{message.poll.question}\n\n\n{options}"
             fromlang = await tr.detect(to_translate)
