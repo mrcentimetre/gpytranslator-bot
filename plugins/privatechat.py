@@ -64,7 +64,7 @@ async def gen_poll_tr_private_chat(bot, message: Message):
                 tolanguage = message.command[1]
             else:
                 tolanguage = await db.get_lang(message.chat.id, message.chat.type)
-            translation = await tr(txt_to_tr, targetlang=[userlang, "utf-16"])
+            translation = await tr(txt_to_tr, targetlang=[tolanguage, "utf-16"])
             translation_text = translation.text
             poll_que = translation_text.split("\n", 1)[0]
             poll_opt = translation_text.splitlines()[1:]
