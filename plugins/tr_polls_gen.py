@@ -17,8 +17,6 @@ prefix = constants.prefix
 async def gen_poll_tr_private_chat(bot, message: Message):
     try:
         if message.reply_to_message.poll:
-            return
-        else:
             replymsg = message.reply_to_message
             poll_options = "\n".join(i["text"] for i in replymsg.poll.options)
             txt_to_tr = f"{replymsg.poll.question}\n{options}"
@@ -37,5 +35,7 @@ async def gen_poll_tr_private_chat(bot, message: Message):
                 is_anonymous=replymsg.poll.is_anonymous,
                 allows_multiple_answers=replymsg.poll.allows_multiple_answers,
             )
+        else:
+            return
     except json.decoder.JSONDecodeError:
         raise google_api_error(constants.google_tr_api_err_msg)
