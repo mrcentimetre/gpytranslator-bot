@@ -135,7 +135,7 @@ translate_string_two: str = (
 
 inline_text_string_one: str = """Translate from {} to {}"""
 
-error_msg_string: str = """**Error:**  \n\n ```{}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again**"""
+error_msg_string: str = """**Error:**  \n\n ```{}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again, try to forward your message too for better help**"""
 
 help_group_string: str = """To get help click on the button below"""
 
