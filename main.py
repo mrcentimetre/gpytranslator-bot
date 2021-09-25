@@ -1,12 +1,13 @@
 from pyrogram import Client, filters, idle
 from pkg_resources import get_distribution
-from config import API_ID, API_HASH, TOKEN, sudofilter
+from config import API_ID, API_HASH, TOKEN, sudofilter, db_url
 import os, sys
 from tortoise import run_async
 from threading import Thread
 from datetime import datetime
 from db.db import init_db
 from db.functions import get_users_count, chat_exists, get_lang
+from exporter_db_to_sqlite import db_to_sqlite_func
 
 bot = Client(
     ":memory:",
@@ -66,6 +67,14 @@ async def get_lang_by_user_db(bot, message):
 async def get_gpytranslate_lib_version(bot, message):
     gpytranslate_version = get_distribution("gpytranslate")
     await message.reply_text(f"gpytranslate version: {gpytranslate_version.version}")
+
+
+@bot.on_message(filters.command("backup_db") & sudofilter & filters.private)
+async def backup_db_cmd(bot, message):
+    sqlite_output_file_name = "gpytranslatorbotdb_backup.sqlite3"
+    db_to_sqlite_func(connection=db_url, path="sqlite_output_file_name")
+    await message.reply_document(sqlite_output_file_name)
+    os.remove(sqlite_output_file_name)
 
 
 async def startbot():
