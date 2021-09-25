@@ -72,7 +72,7 @@ async def get_gpytranslate_lib_version(bot, message):
 @bot.on_message(filters.command("backup_db") & sudofilter & filters.private)
 async def backup_db_cmd(bot, message):
     sqlite_output_file_name = "gpytranslatorbotdb_backup.sqlite3"
-    db_to_sqlite_func(connection=db_url, path="sqlite_output_file_name")
+    db_to_sqlite_func(connection=db_url, path=sqlite_output_file_name)
     await message.reply_document(sqlite_output_file_name)
     os.remove(sqlite_output_file_name)
 
