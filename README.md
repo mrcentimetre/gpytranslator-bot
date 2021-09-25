@@ -58,7 +58,7 @@ This software is licensed under MIT License, with the
 following exceptions
 
 - [exporter\_db\_to\_sqlite/](exporter_db_to_sqlite/) is licensed under
-  Apache 2.0
+  Apache-2.0
 
 ```
 MIT License
