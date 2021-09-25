@@ -5,12 +5,11 @@ pytesseract
 Pillow
 py-multiapi
 tortoise-orm
+sqlite-utils
+sqlalchemy
+psycopg2-binary
+toposort
 
 # optional for postgresql
 
 asyncpg
-
-# optional for mysql
-
-asyncmy
-aiomysql
