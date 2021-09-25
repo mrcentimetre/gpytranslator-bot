@@ -1,5 +1,5 @@
 """
-Based on the codes written by Simon Willison, licensed under Apache 2.0
+Based on the codes written by Simon Willison, licensed under Apache-2.0
 https://github.com/simonw/db-to-sqlite
 """
 
