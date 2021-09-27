@@ -102,7 +102,8 @@ async def main(bot, message: Message):
             fromlang = await tr.detect(to_translate)
             translation = await tr(to_translate, targetlang=[userlang, "utf-16"])
             await message.reply(
-                constants.translate_string_two.format(translation.text, fromlang)
+                constants.translate_string_two.format(translation.text, fromlang),
+                parse_mode="markdown",
             )
     except json.decoder.JSONDecodeError:
         raise google_api_error(constants.google_tr_api_err_msg)
