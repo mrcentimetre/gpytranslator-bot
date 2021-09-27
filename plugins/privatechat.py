@@ -89,8 +89,7 @@ async def gen_poll_tr_private_chat(bot, message: Message):
 async def main(bot, message: Message):
     try:
         if message.poll is None:
-            textorcaption_one = message.text or message.caption
-            textorcaption = html.escape(textorcaption_one)
+            textorcaption = message.text or message.caption
             userlang = await db.get_lang(message.chat.id)
             translation = await tr(textorcaption, targetlang=[userlang, "utf-16"])
             language = await tr.detect(textorcaption or message.caption)
