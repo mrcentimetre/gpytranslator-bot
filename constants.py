@@ -80,16 +80,16 @@ Just send copied text or forward message with other language to GpyTranslator Bo
 **- More help -**
 **Groups & Privat Chat Commands**
  **Translate**
-   ○ /tr (language code (ISO 639-1)) - Translate replied message
-   ○ /tr (language code (ISO 639-1)) (text) - Translate to specific language without changing main language
-   ○ /poll (language code (ISO 639-1)) by reply to poll - translate the poll and send new poll
+   - /tr (language code (ISO 639-1)) - Translate replied message
+   - /tr (language code (ISO 639-1)) (text) - Translate to specific language without changing main language
+   - /poll (language code (ISO 639-1)) by reply to poll - translate the poll and send new poll
  **ocr**
-  ○ /ocr - To get text from image. (the text of in the image must to be in english, else see /ocrlang) (First you should send a image and then send /ocr as a reply.)
-  ○ /ocrlang (language code (ISO 639-2)) - To get text from image. (the language parameter is the language of the text in the image) (First you should send a image and then send /ocrlang (language) as a reply.)
+  - /ocr - To get text from image. (the text of in the image must to be in english, else see /ocrlang) (First you should send a image and then send /ocr as a reply.)
+  - /ocrlang (language code (ISO 639-2)) - To get text from image. (the language parameter is the language of the text in the image) (First you should send a image and then send /ocrlang (language) as a reply.)
 **Translate in inline mode**
- ○ @GpyTranslatorBot (language code (ISO 639-1)) (text)
+ - @GpyTranslatorBot (language code (ISO 639-1)) (text)
 **set your default language (private only)**
- ○ /lang (language code (ISO 639-1)) - set your default language
+ - /lang (language code (ISO 639-1)) - set your default language
 
 __If you do not specify any language code, the given text will be translated to English.__
 [for information about the language codes format click here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
