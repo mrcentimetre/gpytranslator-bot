@@ -92,6 +92,7 @@ Just send copied text or forward message with other language to GpyTranslator Bo
  ○ /lang (language code (ISO 639-1)) - set your default language
 
 __If you do not specify any language code, the given text will be translated to English.__
+[for information about the language codes format click here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 ---
 Find a problem? Send to @MrCentimetre
 coded by @MrCentimetreLK and @itayki by using @DavideGalilei's Library with 💚
