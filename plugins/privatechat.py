@@ -5,6 +5,7 @@ import constants
 import db
 from tr import tr
 import json
+import html
 from bot_custom_exceptions import google_api_error
 
 prefix = constants.prefix
@@ -88,7 +89,8 @@ async def gen_poll_tr_private_chat(bot, message: Message):
 async def main(bot, message: Message):
     try:
         if message.poll is None:
-            textorcaption = message.text or message.caption
+            textorcaption_one = message.text or message.caption
+            textorcaption = html.escape(textorcaption_one)
             userlang = await db.get_lang(message.chat.id)
             translation = await tr(textorcaption, targetlang=[userlang, "utf-16"])
             language = await tr.detect(textorcaption or message.caption)
