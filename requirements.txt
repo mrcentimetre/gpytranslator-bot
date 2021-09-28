@@ -7,9 +7,27 @@ py-multiapi
 tortoise-orm
 sqlite-utils
 sqlalchemy
-psycopg2-binary
 toposort
 
 # optional for postgresql
+# for db backup
+
+psycopg2-binary
+
+# for tortoise-orm
 
 asyncpg
+
+# optional for mysql
+
+# for db backup
+
+mysqlclient
+
+# for tortoise-orm
+
+aiomysql
+
+# or
+
+asyncmy
