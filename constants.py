@@ -141,3 +141,7 @@ help_group_string: str = """To get help click on the button below"""
 google_tr_api_err_msg: str = """this is not text or this is google translate api limit, please try again later."""
 
 ocr_err_msg_lang: str = """the language code is not supported in the ocr try to found the language code by click on the link {}"""
+
+err_must_specify_lang = """you must specify the language to translate."""
+
+err_must_specify_text = """you must specify the text to translate."""
