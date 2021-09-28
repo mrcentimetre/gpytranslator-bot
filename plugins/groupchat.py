@@ -96,11 +96,17 @@ async def translategroup(bot, message: Message) -> None:
 @logging_errors
 async def translategrouptwo(bot, message: Message):
     try:
-        to_translate = message.text.split(None, 2)[2]
+        if len(message.text.split()) > 1:
+            tolanguage = message.command[1]
+        else:
+            return await message.reply_text(constants.err_must_specify_lang)
+        if len(message.text.split()) > 2:
+            to_translate = message.text.split(None, 2)[2]
+        else:
+            return await message.reply_text(constants.err_must_specify_text)
         language = await tr.detect(message.text.split(None, 2)[2])
-        tolanguage = message.command[1]
         translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
-        await message.reply(
+        await message.reply_text(
             constants.translate_string_one.format(
                 translation.text, language, tolanguage
             ),
