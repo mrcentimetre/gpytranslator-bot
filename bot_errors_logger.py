@@ -19,6 +19,7 @@ def logging_errors(f):
                     constants.error_msg_string.format(f"{type(e).__name__}: {e}"),
                     parse_mode="markdown",
                     reply_markup=constants.error_message_markup,
+                    disable_web_page_preview=True,
                 )
             except ChatWriteForbidden:
                 await message.chat.leave()
