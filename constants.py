@@ -7,7 +7,7 @@ prefix: list = ["/", "!", "#", "."]
 start_message_text: str = """
 Hello {} \U0001F60E I am GpyTranslatorBot AKA Gipy \ud83e\udd16
 
-Send any text which you would like to translate for English.
+Send any text or poll which you would like to translate for another language.
 
 **Available commands:**
 /donate - Support developers
