@@ -29,7 +29,7 @@ start_message_reply_markup = InlineKeyboardMarkup(
         [
             InlineKeyboardButton("🔍 Inline here", switch_inline_query_current_chat=" "),
             InlineKeyboardButton(
-                "�💳 Donate", url="https://github.com/mrcentimetre/gpytranslator-bot"
+                "💳 Donate", url="https://www.paypal.com/paypalme/itayki"
             ),
         ],
         [
