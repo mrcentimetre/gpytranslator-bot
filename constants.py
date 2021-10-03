@@ -22,12 +22,6 @@ start_message_reply_markup = InlineKeyboardMarkup(
     [
         [
             InlineKeyboardButton(
-                "donate",
-                url="https://www.paypal.com/paypalme/itayki",
-            )
-        ],
-        [
-            InlineKeyboardButton(
                 "➕ Add me to a Group ➕",
                 url="http://t.me/GpyTranslatorBot?startgroup=tr",
             )
@@ -35,7 +29,7 @@ start_message_reply_markup = InlineKeyboardMarkup(
         [
             InlineKeyboardButton("🔍 Inline here", switch_inline_query_current_chat=" "),
             InlineKeyboardButton(
-                "📄 Source code", url="https://github.com/mrcentimetre/gpytranslator-bot"
+                "�💳 Donate", url="https://github.com/mrcentimetre/gpytranslator-bot"
             ),
         ],
         [
