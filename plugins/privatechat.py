@@ -7,6 +7,7 @@ from tr import tr
 import json
 import html
 from bot_custom_exceptions import google_api_error
+from config import BANNED_USERS
 
 prefix = constants.prefix
 
@@ -27,7 +28,7 @@ async def start(bot, message: Message):
 @Client.on_message(filters.command("help", prefix) & filters.private)
 @logging_errors
 async def help(bot, message: Message):
-    await message.reply_text(constants.help_text)
+    await message.reply_text(constants.help_text, disable_web_page_preview=True)
 
 
 @Client.on_message(filters.command("donate", prefix) & filters.private)
@@ -84,7 +85,7 @@ async def gen_poll_tr_private_chat(bot, message: Message):
 
 @Client.on_message(
     filters.private & ~filters.command("tr", prefix) & ~filters.command("start")
-)
+ & ~BANNED_USERS)
 @logging_errors
 async def main(bot, message: Message):
     try:
@@ -114,11 +115,17 @@ async def main(bot, message: Message):
 @logging_errors
 async def translateprivatetwo(bot, message: Message):
     try:
-        to_translate = message.text.split(None, 2)[2]
+        if len(message.text.split()) > 1:
+            tolanguage = message.command[1]
+        else:
+            return await message.reply_text(constants.err_must_specify_lang)
+        if len(message.text.split()) > 2:
+            to_translate = message.text.split(None, 2)[2]
+        else:
+            return await message.reply_text(constants.err_must_specify_text)
         language = await tr.detect(message.text.split(None, 2)[2])
-        tolanguage = message.command[1]
         translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
-        await message.reply(
+        await message.reply_text(
             constants.translate_string_one.format(
                 translation.text, language, tolanguage
             ),
