@@ -17,17 +17,3 @@ psycopg2-binary
 # for tortoise-orm
 
 asyncpg
-
-# optional for mysql
-
-# for db backup
-
-mysqlclient
-
-# for tortoise-orm
-
-aiomysql
-
-# or
-
-asyncmy
