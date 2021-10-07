@@ -1,0 +1,13 @@
+# optional for mysql
+
+# for db backup
+
+mysqlclient
+
+# for tortoise-orm
+
+aiomysql
+
+# or
+
+asyncmy
