@@ -115,14 +115,19 @@ async def main(bot, message: Message):
 async def translateprivatetwo(bot, message: Message):
     try:
         if len(message.text.split()) > 1:
-            tolanguage = message.command[1]
+            msgcmdone = message.command[1]
+            if len(msgcmdone.split("-")) > 1:
+                tolanguage = msgcmdone.split("-")[0]
+                language = msgcmdone.split("-")[1]
+            else:
+                tolanguage = message.command[1]
+                language = await tr.detect(message.text.split(None, 2)[2])
         else:
             return await message.reply_text(constants.err_must_specify_lang)
         if len(message.text.split()) > 2:
             to_translate = message.text.split(None, 2)[2]
         else:
             return await message.reply_text(constants.err_must_specify_text)
-        language = await tr.detect(message.text.split(None, 2)[2])
         translation = await tr(to_translate, sourcelang=language, targetlang=tolanguage)
         await message.reply_text(
             constants.translate_string_one.format(
