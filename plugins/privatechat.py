@@ -119,6 +119,9 @@ async def translateprivatetwo(bot, message: Message):
             if len(msgcmdone.split("-")) > 1:
                 tolanguage = msgcmdone.split("-")[0]
                 language = msgcmdone.split("-")[1]
+                if (tolanguage == "") or (language == ""):
+                    tolanguage = message.command[1]
+                    language = await tr.detect(message.text.split(None, 2)[2])
             else:
                 tolanguage = message.command[1]
                 language = await tr.detect(message.text.split(None, 2)[2])
