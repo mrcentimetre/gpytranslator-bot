@@ -151,6 +151,8 @@ async def translateprivate_reply(bot, message: Message):
                 to_translate = message.reply_to_message.caption
             elif message.reply_to_message.text:
                 to_translate = message.reply_to_message.text
+            else:
+                return
             language = await tr.detect(to_translate)
             if len(message.text.split()) > 1:
                 tolanguage = message.command[1]
