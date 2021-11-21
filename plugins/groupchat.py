@@ -49,6 +49,8 @@ async def translategroup(bot, message: Message) -> None:
                 to_translate = message.reply_to_message.caption
             elif message.reply_to_message.text:
                 to_translate = message.reply_to_message.text
+            else:
+                return
             try:
                 args = message.text.split()[1].lower()
                 if "//" in args:
