@@ -4,7 +4,7 @@ import constants
 from tr import tr
 from bot_errors_logger import logging_errors
 from bot_custom_exceptions import google_api_error
-import json
+from gpytranslate import TranslationError
 
 prefix = constants.prefix
 
@@ -34,7 +34,7 @@ async def gen_poll_tr_group_chat(bot, message: Message):
             )
         else:
             return
-    except json.decoder.JSONDecodeError:
+    except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
 
 
@@ -90,7 +90,7 @@ async def translategroup(bot, message: Message) -> None:
                 ),
                 parse_mode="markdown",
             )
-    except json.decoder.JSONDecodeError:
+    except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
 
 
@@ -114,7 +114,7 @@ async def translategrouptwo(bot, message: Message):
             ),
             parse_mode="markdown",
         )
-    except json.decoder.JSONDecodeError:
+    except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
 
 
