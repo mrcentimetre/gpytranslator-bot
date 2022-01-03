@@ -4,7 +4,7 @@ from bot_errors_logger import logging_errors
 import constants
 import db
 from tr import tr
-import json
+from gpytranslate import TranslationError
 import html
 from bot_custom_exceptions import google_api_error
 
@@ -78,7 +78,7 @@ async def gen_poll_tr_private_chat(bot, message: Message):
             )
         else:
             return
-    except json.decoder.JSONDecodeError:
+    except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
 
 
@@ -106,7 +106,7 @@ async def main(bot, message: Message):
                 constants.translate_string_two.format(translation.text, fromlang),
                 parse_mode="markdown",
             )
-    except json.decoder.JSONDecodeError:
+    except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
 
 
@@ -138,7 +138,7 @@ async def translateprivatetwo(bot, message: Message):
             ),
             parse_mode="markdown",
         )
-    except json.decoder.JSONDecodeError:
+    except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
 
 
@@ -186,5 +186,5 @@ async def translateprivate_reply(bot, message: Message):
                 ),
                 parse_mode="markdown",
             )
-    except json.decoder.JSONDecodeError:
+    except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
