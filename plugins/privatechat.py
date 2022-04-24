@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import Message
 from bot_errors_logger import logging_errors
 import constants
@@ -104,7 +104,7 @@ async def main(bot, message: Message):
             translation = await tr(to_translate, targetlang=[userlang, "utf-16"])
             await message.reply(
                 constants.translate_string_two.format(translation.text, fromlang),
-                parse_mode="markdown",
+                parse_mode=enums.ParseMode.MARKDOWN,
             )
     except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
@@ -136,7 +136,7 @@ async def translateprivatetwo(bot, message: Message):
             constants.translate_string_one.format(
                 translation.text, language, tolanguage
             ),
-            parse_mode="markdown",
+            parse_mode=enums.ParseMode.MARKDOWN,
         )
     except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
@@ -165,7 +165,7 @@ async def translateprivate_reply(bot, message: Message):
                 constants.translate_string_one.format(
                     translation.text, language, tolanguage
                 ),
-                parse_mode="markdown",
+                parse_mode=enums.ParseMode.MARKDOWN,
             )
         elif message.reply_to_message.poll is not None:
             options = "\n".join(
@@ -184,7 +184,7 @@ async def translateprivate_reply(bot, message: Message):
                 constants.translate_string_one.format(
                     translation.text, language, tolanguage
                 ),
-                parse_mode="markdown",
+                parse_mode=enums.ParseMode.MARKDOWN,
             )
     except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
