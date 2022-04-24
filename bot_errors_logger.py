@@ -1,4 +1,4 @@
-from pyrogram import Client
+from pyrogram import Client, enums
 from pyrogram.types import Message
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 from functools import wraps
@@ -17,7 +17,7 @@ def logging_errors(f):
             try:
                 await message.reply(
                     constants.error_msg_string.format(f"{type(e).__name__}: {e}"),
-                    parse_mode="markdown",
+                    parse_mode=enums.ParseMode.MARKDOWN,
                     reply_markup=constants.error_message_markup,
                     disable_web_page_preview=True,
                 )
