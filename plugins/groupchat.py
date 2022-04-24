@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 import constants
 from tr import tr
@@ -69,7 +69,7 @@ async def translategroup(bot, message: Message) -> None:
                 constants.translate_string_one.format(
                     translation.text, language, tolanguage
                 ),
-                parse_mode="markdown",
+                parse_mode=enums.ParseMode.MARKDOWN,
             )
         elif message.reply_to_message.poll is not None:
             options = "\n".join(
@@ -88,7 +88,7 @@ async def translategroup(bot, message: Message) -> None:
                 constants.translate_string_one.format(
                     translation.text, language, tolanguage
                 ),
-                parse_mode="markdown",
+                parse_mode=enums.ParseMode.MARKDOWN,
             )
     except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
@@ -112,7 +112,7 @@ async def translategrouptwo(bot, message: Message):
             constants.translate_string_one.format(
                 translation.text, language, tolanguage
             ),
-            parse_mode="markdown",
+            parse_mode=enums.ParseMode.MARKDOWN,
         )
     except TranslationError:
         raise google_api_error(constants.google_tr_api_err_msg)
