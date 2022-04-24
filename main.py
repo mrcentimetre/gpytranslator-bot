@@ -29,7 +29,6 @@ def stop_and_restart():
     & sudofilter
     & ~filters.forwarded
     & ~filters.group
-    & ~filters.edited
     & ~filters.via_bot
 )
 async def restart(bot, message):
