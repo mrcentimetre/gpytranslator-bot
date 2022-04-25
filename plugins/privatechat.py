@@ -85,9 +85,6 @@ async def gen_poll_tr_private_chat(bot, message: Message):
 @Client.on_message(
     filters.private & ~filters.command("tr", prefix) & ~filters.command("start")
 )
-@Client.on_edited_message(
-    filters.private & ~filters.command("tr", prefix) & ~filters.command("start")
-)
 @logging_errors
 async def main(bot, message: Message):
     try:
@@ -114,7 +111,6 @@ async def main(bot, message: Message):
 
 
 @Client.on_message(filters.command("tr", prefix) & filters.private & ~filters.reply)
-@Client.on_edited_message(filters.command("tr", prefix) & filters.private & ~filters.reply)
 @logging_errors
 async def translateprivatetwo(bot, message: Message):
     try:
