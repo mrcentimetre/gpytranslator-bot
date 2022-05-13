@@ -10,7 +10,8 @@ from db.functions import get_users_count, chat_exists, get_lang
 from exporter_db_to_sqlite import db_to_sqlite_func
 
 bot = Client(
-    ":memory:",
+    "gpytranslatorbot",
+    in_memory=True,
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=TOKEN,
