@@ -59,7 +59,7 @@ async def gen_poll_tr_private_chat(bot, message: Message):
     try:
         if message.reply_to_message.poll:
             replymsg = message.reply_to_message
-            poll_options = "\n".join(i["text"] for i in replymsg.poll.options)
+            poll_options = "\n".join(i.text for i in replymsg.poll.options)
             txt_to_tr = f"{replymsg.poll.question}\n{poll_options}"
             if len(message.text.split()) > 1:
                 tolanguage = message.command[1]
@@ -98,7 +98,7 @@ async def main(bot, message: Message):
             )
         elif message.poll is not None:
             userlang = await db.get_lang(message.chat.id)
-            options = "\n".join(x["text"] for x in message.poll.options)
+            options = "\n".join(x.text for x in message.poll.options)
             to_translate = f"{message.poll.question}\n\n\n{options}"
             fromlang = await tr.detect(to_translate)
             translation = await tr(to_translate, targetlang=[userlang, "utf-16"])
@@ -169,7 +169,7 @@ async def translateprivate_reply(bot, message: Message):
             )
         elif message.reply_to_message.poll is not None:
             options = "\n".join(
-                x["text"] for x in message.reply_to_message.poll.options
+                x.text for x in message.reply_to_message.poll.options
             )
             to_translate = f"{message.reply_to_message.poll.question}\n\n\n{options}"
             language = await tr.detect(to_translate)
