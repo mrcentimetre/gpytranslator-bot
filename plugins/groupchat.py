@@ -15,7 +15,7 @@ async def gen_poll_tr_group_chat(bot, message: Message):
     try:
         if message.reply_to_message.poll:
             replymsg = message.reply_to_message
-            poll_options = "\n".join(i["text"] for i in replymsg.poll.options)
+            poll_options = "\n".join(i.text for i in replymsg.poll.options)
             txt_to_tr = f"{replymsg.poll.question}\n{poll_options}"
             if len(message.text.split()) > 1:
                 tolanguage = message.command[1]
@@ -73,7 +73,7 @@ async def translategroup(bot, message: Message) -> None:
             )
         elif message.reply_to_message.poll is not None:
             options = "\n".join(
-                x["text"] for x in message.reply_to_message.poll.options
+                x.text for x in message.reply_to_message.poll.options
             )
             to_translate = f"{message.reply_to_message.poll.question}\n\n\n{options}"
             language = await tr.detect(to_translate)
