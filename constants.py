@@ -106,7 +106,7 @@ __Select the language you want to translate.__
 
 •/lang (language code) 
 
-Example: ```/lang en``` 
+Example: `/lang en` 
 
 List of language codes: https://cloud.google.com/translate/docs/languages
 
@@ -117,17 +117,17 @@ error_ocr_no_reply: str = """reply to a photo to get the text"""
 
 lang_saved_message: str = """{} has been set as your main language."""
 
-ocr_message_text: str = """```the text in the image:``` \n\n {}"""
+ocr_message_text: str = """`the text in the image:` \n\n {}"""
 
 translate_string_one: str = """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {} \n\n **Translated to**: {}"""
 
 translate_string_two: str = (
-    """**\ud83c\udf10 Translation**:\n\n```{}```\n\n**🔍 Detected language:** {}"""
+    """**\ud83c\udf10 Translation**:\n\n`{}`\n\n**🔍 Detected language:** {}"""
 )
 
 inline_text_string_one: str = """Translate from {} to {}"""
 
-error_msg_string: str = """**Error:**  \n\n ```{}``` \n\n **forward this message to https://t.me/TDICSupport if you see this error again, try to forward your message too for better help**"""
+error_msg_string: str = """**Error:**  \n\n `{}` \n\n **forward this message to https://t.me/TDICSupport if you see this error again, try to forward your message too for better help**"""
 
 help_group_string: str = """To get help click on the button below"""
 
