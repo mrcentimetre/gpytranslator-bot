@@ -1,6 +1,6 @@
-from pyrogram import Client, enums
-from pyrogram.types import Message
-from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
+from hydrogram import Client, enums
+from hydrogram.types import Message
+from hydrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 from functools import wraps
 import constants
 
