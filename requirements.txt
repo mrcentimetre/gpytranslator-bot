@@ -1,5 +1,5 @@
 gpytranslate
-Pyrogram
+hydrogram
 TgCrypto
 pytesseract
 Pillow

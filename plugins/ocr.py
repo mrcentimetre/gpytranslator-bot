@@ -1,5 +1,5 @@
-from pyrogram import Client, filters
-from pyrogram.types import Message
+from hydrogram import Client, filters
+from hydrogram.types import Message
 import pytesseract, PIL, os
 import constants
 from bot_errors_logger import logging_errors

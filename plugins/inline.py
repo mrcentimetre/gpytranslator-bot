@@ -1,5 +1,5 @@
-from pyrogram import Client
-from pyrogram.types import (
+from hydrogram import Client
+from hydrogram.types import (
     InlineQuery,
     InlineQueryResultArticle,
     InputTextMessageContent,

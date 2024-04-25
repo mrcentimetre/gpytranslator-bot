@@ -1,5 +1,5 @@
-from pyrogram import Client, filters, enums
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from hydrogram import Client, filters, enums
+from hydrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 import constants
 from tr import tr
 from bot_errors_logger import logging_errors
