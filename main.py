@@ -1,4 +1,4 @@
-from pyrogram import Client, filters, idle
+from hydrogram import Client, filters, idle
 from pkg_resources import get_distribution
 from config import API_ID, API_HASH, TOKEN, sudofilter, db_url
 import os, sys
