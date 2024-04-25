@@ -1,5 +1,5 @@
-from pyrogram import Client, filters
-from pyrogram.types import CallbackQuery
+from hydrogram import Client, filters
+from hydrogram.types import CallbackQuery
 import constants
 
 
