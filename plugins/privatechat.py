@@ -1,5 +1,5 @@
-from pyrogram import Client, filters, enums
-from pyrogram.types import Message
+from hydrogram import Client, filters, enums
+from hydrogram.types import Message
 from bot_errors_logger import logging_errors
 import constants
 import db
