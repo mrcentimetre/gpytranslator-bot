@@ -1,4 +1,4 @@
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from hydrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 prefix: list = ["/", "!", "#", "."]
